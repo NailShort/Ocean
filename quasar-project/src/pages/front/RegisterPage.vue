@@ -8,18 +8,18 @@
       </div>
       <div class="login">
         <h1>註冊</h1>
-    <q-form style="width:400px" @submit="register" ref="formEl" class="q-gutter-md">
+        <q-form style="width:400px" @submit="register" ref="formEl" class="q-gutter-md">
 
-      <q-input filled v-model="form.email" type="email" label="信箱"  :rules="[rules.email, rules.required]"  />
-      <q-input filled v-model="form.account" label="帳號"  :rules="[rules.required, rules.length]"  />
-      <q-input filled v-model="form.password" type="password" label="密碼"  :rules="[rules.required, rules.length]"  />
-      <q-input filled v-model="form.passwordConfirm" type="password" label="密碼確認"  :rules="[rules.required, rules.length, rules.passwordConfirm]"/>
+          <q-input filled v-model="form.email" type="email" label="信箱"  :rules="[rules.email, rules.required]"  />
+          <q-input filled v-model="form.account" label="帳號"  :rules="[rules.required, rules.length]"  />
+          <q-input filled v-model="form.password" type="password" label="密碼"  :rules="[rules.required, rules.length]"  />
+          <q-input filled v-model="form.passwordConfirm" type="password" label="密碼確認"  :rules="[rules.required, rules.length, rules.passwordConfirm]"/>
 
-      <div class="btn">
-        <q-btn label="註冊會員" type="submit" :loading="loading" color="primary"/>
-        <q-btn label="會員登入" type="submit" color="secondary" style="margin-left: 20px;"/>
-      </div>
-    </q-form>
+          <div class="btn">
+            <q-btn label="註冊會員" type="submit" :loading="loading" color="primary"/>
+            <q-btn label="會員登入" type="submit" color="secondary" style="margin-left: 20px;"/>
+          </div>
+        </q-form>
       </div>
     </div>
   </div>

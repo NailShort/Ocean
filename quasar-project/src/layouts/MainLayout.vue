@@ -14,11 +14,14 @@
         <!-- 登入按鈕 -->
         <div class="login">
             <q-btn-group push>
-            <q-btn v-if="!isLogin" push label="會員登入" icon="login" to="login" />
-            <q-btn v-if="!isLogin" push label="註冊會員" icon="how_to_reg" to="register" />
-            <q-btn v-if="isLogin" push label="會員專區" icon="account_circle"  />
+            <q-btn v-if="!isLogin" push label="會員登入" icon="login" to="/login" />
+            <q-btn v-if="!isLogin" push label="註冊會員" icon="how_to_reg" to="/register" />
+            <q-btn v-if="isLogin" push label="會員專區" icon="account_circle" to="/member">
+              <q-badge color="secondary" floating >{{ like }}0</q-badge>
+            </q-btn>
+
             <q-btn :content="cart" push label="訂單" icon="mail"  />
-            <q-btn v-if="isLogin && isAdmin" push label="管理" icon="settings" to="admin" />
+            <q-btn v-if="isLogin && isAdmin" push label="管理" icon="settings" to="/admin" />
             <q-btn v-if="isLogin" push label="登出" icon="logout"  @click="logout" />
             </q-btn-group>
         </div>
@@ -34,12 +37,14 @@
             direction="left"
             padding="xs"
           >
-          <q-fab-action v-if="!isLogin" icon="how_to_reg" label="註冊帳號" to="register"  />
-          <q-fab-action v-if="!isLogin" icon="login" label="會員登入" to="login" />
+          <q-fab-action v-if="!isLogin" icon="how_to_reg" label="註冊帳號" to="/register"  />
+          <q-fab-action v-if="!isLogin" icon="login" label="會員登入" to="/login" />
           <q-fab-action v-if="isLogin" icon="logout" @click="logout" />
-          <q-fab-action :content="cart" icon="mail" label="" t/>
-          <q-fab-action v-if="isLogin" icon="account_circle" label=""/>
-          <q-fab-action v-if="isLogin && isAdmin"   icon="settings" label="" to="admin" />
+          <q-fab-action icon="mail" label="" />
+          <q-btn v-if="isLogin" round icon="account_circle" label="" to="/member" >
+            <q-badge color="secondary" floating>{{ like }}0</q-badge>
+          </q-btn>
+          <q-fab-action v-if="isLogin && isAdmin"   icon="settings" label="" to="/admin" />
 
           </q-fab>
         </div>
@@ -138,13 +143,15 @@
   </q-layout>
 </template>
 
+<!-- script ------------------------------------------------------------->
+
 <script setup>
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '../stores/user'
 
 const user = useUserStore()
-const { isLogin, isAdmin, cart } = storeToRefs(user)
+const { isLogin, isAdmin, like } = storeToRefs(user)
 const { logout } = user
 
 const leftDrawerOpen = ref(false)
@@ -157,6 +164,7 @@ const fab1 = ref(false)
 
 </script>
 
+<!-- style -------------------------------------------------------------->
 <style lang="scss" scoped>
 .q-header{
     background: linear-gradient(rgba(30,180,210,1)50%,rgba(30,180,210,0));

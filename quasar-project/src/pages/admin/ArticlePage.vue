@@ -6,17 +6,39 @@
       <!-- 新增商品 -->
       <div class="q-pa-md q-gutter-sm">
         <q-btn label="新增商品" color="primary" @click="openDialog(-1)" />
+      </div>
+
+        <table style="width: 70%; " border="1">
+          <thead>
+            <tr align="left">
+              <th>圖片</th>
+              <th>名稱</th>
+              <th>管理</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(product, idx) in products" :key="product._id">
+              <td>
+                <img :src="product.image"  :width="100">
+              </td>
+              <td>{{ product.name }}</td>
+              <td >
+                <q-btn color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
         <!-- 彈跳視窗 -->
         <q-dialog v-model="form.dialog" persistent>
 
-          <q-card style="min-width: 500px">
-            <q-form>
-            <q-card-section>
-              <div class="text-h6">{{ form._id.length > 0 ? '編輯商品' : '新增商品' }}</div>
-            </q-card-section>
+          <q-card style="min-width: 700px">
+            <q-form  @submit="submit">
 
             <q-card-section>
+              <!-- 標題 -->
+              <div class="text-h6">{{ form._id.length > 0 ? '編輯商品' : '新增商品' }}</div>
+              <!-- 文章 -->
               <q-input
                 filled
                 v-model="form.name"
@@ -25,7 +47,7 @@
                 lazy-rules
                 :rules="[rules.required]"
               />
-
+              <!-- 價格 -->
               <q-input
                 filled
                 type="number"
@@ -34,7 +56,7 @@
                 lazy-rules
                 :rules="[rules.required, rules.price]"
               />
-
+              <!-- 說明 -->
               <q-input
                 filled
                 v-model="form.description"
@@ -43,35 +65,41 @@
                 :rules="[rules.required]"
               />
 
-              <!-- uploader -->
-              <q-uploader
-                url="http://localhost:4444/upload"
-                v-model="form.image"
-                label="選擇圖片"
-                multiple
-                style="width: 70%;"
-              />
+              <!-- 分類 -->
+              <q-select filled v-model="form.category" :options="categories" label="分類" :rules="[rules.required]" />
 
               <!-- 上架 -->
+              <q-checkbox v-model="form.sell" label="上架" />
 
-              <div>
-                <q-btn label="Submit" type="submit" color="primary"/>
-                <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-              </div>
-              </q-card-section>
+              <!-- 照片 -->
+              <q-file outlined v-model="form.image">
+                <template v-slot:prepend>
+                  <q-icon name="attach_file" />
+                </template>
+              </q-file>
+
+            </q-card-section>
+
+              <q-card-actions align="center" class="text-primary">
+                <q-btn :disabled="form.loading" type="submit" color="primary" label="送出"/>
+                <q-btn :disabled="form.loading" @click="form.dialog = false" label="取消" color="primary" flat class="q-ml-sm" />
+              </q-card-actions>
+
             </q-form>
             </q-card>
 
         </q-dialog>
-      </div>
 
     </div>
   </div>
 </template>
 
 <script setup>
+import { apiAuth } from '../../../plugins/axios'
 import { reactive } from 'vue'
+import Swal from 'sweetalert2'
 
+const categories = ['海水魚類', '珊瑚軟體', '硬體設備', '二手分享']
 const rules = {
   required (value) {
     return !!value || '欄位必填'
@@ -90,7 +118,7 @@ const form = reactive({
   image: undefined,
   sell: false,
   category: '',
-  valid: false,
+
   loading: false,
   dialog: false,
   idx: -1
@@ -105,7 +133,7 @@ const openDialog = (idx) => {
     form.image = undefined
     form.sell = false
     form.category = ''
-    form.valid = false
+
     form.loading = false
     form.idx = -1
   } else {
@@ -116,17 +144,76 @@ const openDialog = (idx) => {
     form.image = undefined
     form.sell = products[idx].sell
     form.category = products[idx].category
-    form.valid = false
+
     form.loading = false
     form.idx = idx
   }
   form.dialog = true
 }
 
+const submit = async () => {
+  form.loading = true
+
+  // fd.append(key, value)
+  const fd = new FormData()
+  fd.append('name', form.name)
+  fd.append('price', form.price)
+  fd.append('description', form.description)
+  fd.append('image', form.image)
+  fd.append('sell', form.sell)
+  fd.append('category', form.category)
+
+  try {
+    if (form._id.length === 0) {
+      const { data } = await apiAuth.post('/products', fd)
+      products.push(data.result)
+      Swal.fire({
+        icon: 'success',
+        title: '成功',
+        text: '新增成功'
+      })
+    } else {
+      const { data } = await apiAuth.patch('/products/' + form._id, fd)
+      products[form.idx] = data.result
+      Swal.fire({
+        icon: 'success',
+        title: '成功',
+        text: '編輯成功'
+      })
+    }
+    form.dialog = false
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error?.response?.data?.message || '發生錯誤'
+    })
+  }
+
+  form.loading = false
+}
+
+(async () => {
+  try {
+    const { data } = await apiAuth.get('/products/all')
+    products.push(...data.result)
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error?.response?.data?.message || '發生錯誤'
+    })
+  }
+})()
+
 </script>
 
 <!-- style ----------------------------------------------------------->
 <style lang="scss" scoped>
+.swal2-container{
+  z-index: 6100;
+}
+
 #Admin{
   background: rgb(15,85,165);
   height: 887px;

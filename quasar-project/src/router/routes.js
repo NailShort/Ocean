@@ -34,6 +34,16 @@ const routes = [
           login: false,
           admin: false
         }
+      },
+      {
+        path: 'products/:id',
+        name: 'products',
+        component: () => import('pages/front/ProductPage.vue'),
+        meta: {
+          title: 'Ocean | 商品',
+          login: false,
+          admin: false
+        }
       }
     ]
   },
@@ -89,6 +99,32 @@ const routes = [
           title: 'Ocean | 會員資料管理',
           login: true,
           admin: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/member',
+    component: () => import('layouts/MemberLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'member-home',
+        component: () => import('pages/member/HomePage.vue'),
+        meta: {
+          title: 'Ocean | 會員專區',
+          login: true,
+          admin: false
+        }
+      },
+      {
+        path: 'like',
+        name: 'member-like',
+        component: () => import('pages/member/LikePage.vue'),
+        meta: {
+          title: 'Ocean | 最愛文章',
+          login: true,
+          admin: false
         }
       }
     ]

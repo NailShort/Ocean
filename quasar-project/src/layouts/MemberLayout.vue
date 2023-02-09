@@ -2,7 +2,7 @@
 
   <q-layout view="hHh lpR lFf">
 
-    <q-header class="bg-primary text-white">
+    <q-header class="bg-secondary text-white">
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
@@ -27,28 +27,14 @@
                 <q-item-section avatar>
                   <q-icon name="description" />
                 </q-item-section>
-                <q-item-section>文章討論管理</q-item-section>
+                <q-item-section>我的文章</q-item-section>
               </q-item>
 
-              <q-item clickable v-ripple to="/admin/fish">
+              <q-item clickable v-ripple to="/member/like">
                 <q-item-section avatar>
                   <q-icon name="auto_stories" />
                 </q-item-section>
-                <q-item-section>魚種圖鑑管理</q-item-section>
-              </q-item>
-
-              <q-item clickable v-ripple to="/admin/news">
-                <q-item-section avatar>
-                  <q-icon name="newspaper" />
-                </q-item-section>
-                <q-item-section>最新消息管理</q-item-section>
-              </q-item>
-
-              <q-item clickable v-ripple to="/admin/member">
-                <q-item-section avatar>
-                  <q-icon name="groups" />
-                </q-item-section>
-                <q-item-section>會員資料管理</q-item-section>
+                <q-item-section>最愛文章</q-item-section>
               </q-item>
 
               <q-item clickable v-ripple to="/">
@@ -110,7 +96,7 @@ function toggleLeftDrawer () {
 .menu{
   height: 100%;
   width: 100%;
-  background: rgb(15,85,165);
+  background: rgb(225,85,25);
   ul{
     overflow: hidden;
     margin: 0;

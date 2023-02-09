@@ -22,77 +22,17 @@
     </div>
 
     <!-- 熱門文章 -------------------------------------------------------------->
-    <div class="card column items-center">
+    <div class="card column items-center justify-center">
       <div class="text">
         <h3>熱門文章</h3>
-        <span>hot articles</span>
+        <span>Hot Articles</span>
       </div>
       <!-- 卡片 -->
-      <div class="cards q-pa-md row items-center justify-center q-gutter-md">
-        <q-card class="my-card col-10 col-sm-5 col-lg-5">
-          <img src="../../../images/fish1.jpg">
-          <q-item>
-            <q-item-section>
-              <q-item-label>Title</q-item-label>
-              <q-item-label caption>Subhead</q-item-label>
-            </q-item-section>
-
-            <q-item-section avatar>
-              <q-avatar>
-                <img src="https://cdn.quasar.dev/img/avatar2.jpg">
-              </q-avatar>
-            </q-item-section>
-          </q-item>
-        </q-card>
-
-        <q-card class="my-card col-10 col-sm-5 col-lg-5">
-          <img src="../../../images/fish2.jpg">
-          <q-item>
-            <q-item-section>
-              <q-item-label>Title</q-item-label>
-              <q-item-label caption>Subhead</q-item-label>
-            </q-item-section>
-
-            <q-item-section avatar>
-              <q-avatar>
-                <img src="https://cdn.quasar.dev/img/avatar2.jpg">
-              </q-avatar>
-            </q-item-section>
-          </q-item>
-        </q-card>
-
-        <q-card class="my-card col-10 col-sm-5 col-lg-5">
-          <img src="../../../images/fish3.jpg">
-          <q-item>
-            <q-item-section>
-              <q-item-label>Title</q-item-label>
-              <q-item-label caption>Subhead</q-item-label>
-            </q-item-section>
-
-            <q-item-section avatar>
-              <q-avatar>
-                <img src="https://cdn.quasar.dev/img/avatar2.jpg">
-              </q-avatar>
-            </q-item-section>
-          </q-item>
-        </q-card>
-
-        <q-card class="my-card col-10 col-sm-5 col-lg-5">
-          <img src="../../../images/fish3.jpg">
-          <q-item>
-            <q-item-section>
-              <q-item-label>Title</q-item-label>
-              <q-item-label caption>Subhead</q-item-label>
-            </q-item-section>
-
-            <q-item-section avatar>
-              <q-avatar>
-                <img src="https://cdn.quasar.dev/img/avatar2.jpg">
-              </q-avatar>
-            </q-item-section>
-          </q-item>
-        </q-card>
+      <div class="row justify-center" >
+      <div class="cards justify-center" style="width: 300px;" v-for="product in products" :key="product._id">
+        <ProductCard v-bind="product" ></ProductCard>
       </div>
+    </div>
       <!-- 文章按鈕 -------------------------------------------------------------->
       <div class="btn">
         <div class="box1">
@@ -115,7 +55,8 @@
       <div class="sea"></div>
       <div class="wave"></div>
       <div class="text">
-        <h1>魚種圖鑑</h1>
+        <h3>魚種圖鑑</h3>
+        <span>Fish Data</span>
       </div>
     </div>
 
@@ -123,7 +64,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+import { api } from 'app/plugins/axios'
+import Swal from 'sweetalert2'
+import ProductCard from '../../components/ProductCard.vue'
+
+const products = reactive([]);
+
+(async () => {
+  try {
+    const { data } = await api.get('/products')
+    products.push(...data.result)
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error?.response?.data?.message || '發生錯誤'
+    })
+  }
+})()
 
 const slide = ref(1)
 // const slide02 = ref(1)
@@ -226,6 +185,18 @@ const autoplay = ref(true)
   background: url(../../../images/bg-1.jpg) no-repeat center/cover;
   height: 100vh;
   position: relative;
+  .text{
+    padding-top: 100px;
+    text-align: center;
+    h3{
+      font-size: 40px;
+      font-weight: 500;
+      margin: 0;
+    }
+    span{
+      font-size: 20px;
+    }
+  }
   .sea{
     position: absolute;
     top: -5px;

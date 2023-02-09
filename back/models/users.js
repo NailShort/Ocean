@@ -14,6 +14,18 @@ const cartSchema = new Schema({
   }
 })
 
+const likeSchema = new Schema({
+  p_id: {
+    type: ObjectId,
+    ref: 'products',
+    required: [true, '缺少商品']
+  },
+  quantity: { // quantity 數量
+    type: Number,
+    required: [true, '缺少數量']
+  }
+})
+
 const schema = new Schema({
   account: {
     type: String,
@@ -44,6 +56,10 @@ const schema = new Schema({
   },
   cart: { // cart 購物車
     type: [cartSchema],
+    default: []
+  },
+  like: { // cart 購物車
+    type: [likeSchema],
     default: []
   },
   role: { // role 角色
