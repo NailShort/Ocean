@@ -118,6 +118,16 @@ const routes = [
         }
       },
       {
+        path: 'mine',
+        name: 'member-mine',
+        component: () => import('pages/member/MinePage.vue'),
+        meta: {
+          title: 'Ocean | 我的文章',
+          login: true,
+          admin: false
+        }
+      },
+      {
         path: 'like',
         name: 'member-like',
         component: () => import('pages/member/LikePage.vue'),

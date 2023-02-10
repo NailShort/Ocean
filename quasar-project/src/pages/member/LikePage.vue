@@ -1,7 +1,7 @@
 <template>
   <div id="Like">
     <div class="content">
-      <div class="row">
+      <div class="row items-center justify-center">
         <h1 h1>最愛文章</h1>
         <div class="col-10">
           <table>

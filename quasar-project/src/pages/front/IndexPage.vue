@@ -1,7 +1,9 @@
 <template>
   <div id="index">
+    <!-- 輪播圖 ------------------------------------------------------------------->
     <div class="carousel">
       <q-carousel
+      swipeable
       animated
       v-model="slide"
       navigation
@@ -22,19 +24,23 @@
     </div>
 
     <!-- 熱門文章 -------------------------------------------------------------->
-    <div class="card column items-center justify-center">
-      <div class="text">
+    <div class="card row items-center justify-center wrap">
+      <div class="text col-12">
         <h3>熱門文章</h3>
         <span>Hot Articles</span>
       </div>
       <!-- 卡片 -->
-      <div class="row justify-center" >
+      <div class="sw col12" style="width: 70%; background: transparent;">
+        <SwiperCard></SwiperCard>
+      </div>
+
+      <!-- <div class="col-12 row justify-center" >
       <div class="cards justify-center" style="width: 300px;" v-for="product in products" :key="product._id">
         <ProductCard v-bind="product" ></ProductCard>
       </div>
-    </div>
-      <!-- 文章按鈕 -------------------------------------------------------------->
-      <div class="btn">
+    </div> -->
+      <!-- 文章按鈕 -->
+      <div class="btn col-12 justify-center items-start">
         <div class="box1">
           <a href="#">海水魚類</a>
         </div>
@@ -54,9 +60,30 @@
     <div class="fish">
       <div class="sea"></div>
       <div class="wave"></div>
-      <div class="text">
+      <!-- <div class="text">
         <h3>魚種圖鑑</h3>
         <span>Fish Data</span>
+      </div> -->
+      <!-- 內容 -->
+      <div class="contant column items-center justify-center">
+        <!-- 文字 -->
+        <div class="left col">
+          <p class="title">常見觀賞魚圖鑑</p>
+          <p class="slogin">
+            海水缸魚類新手入門指南<br>
+            玩家參考寶典！</p>
+          <p class="l-text">
+            針對台灣原生與進口的觀賞海水魚，分享魚類分布海域、食性、成體大小等...<br>
+            提供照片辨認，及魚友的分享。是鑑賞海水魚時的絕佳工具書。<br>
+            不是喜歡就放，必須了解海水魚以挑選能和平相處的魚種，才能避免各種風險。
+          </p>
+          <q-btn class="btn" no-caps outline rounded color="primary" label="View More" icon-right="double_arrow" />
+        </div>
+        <!-- 圖片 -->
+        <div class="right col-8 items-center justify-center">
+          <FishSwiper></FishSwiper>
+        </div>
+
       </div>
     </div>
 
@@ -67,7 +94,9 @@
 import { ref, reactive } from 'vue'
 import { api } from 'app/plugins/axios'
 import Swal from 'sweetalert2'
-import ProductCard from '../../components/ProductCard.vue'
+// import ProductCard from '../../components/ProductCard.vue'
+import SwiperCard from '../../components/SwiperCard.vue'
+import FishSwiper from '../../components/FishSwiper.vue'
 
 const products = reactive([]);
 
@@ -109,12 +138,12 @@ const autoplay = ref(true)
   position: relative;
   .q-carousel{
     height: 100vh;
-    width: 1500px;
+    width: 100%;
     margin: auto;
   }
   .sh{
     position: absolute;
-    bottom: -10px;
+    bottom: -5px;
     width: 100%;
     height: 200px;
     background: linear-gradient(rgba(30,180,210,0),rgba(15,85,165,0.9),rgba(255,255,255,1));
@@ -131,11 +160,12 @@ const autoplay = ref(true)
 // 熱門文章 --------------------------------------------------------------
 .card{
   width: 100%;
-  background: white;
+  background: url(../../../images/文章bg-01.png)no-repeat center/cover;
   display: flex;
   position: relative;
   .text{
     text-align: center;
+    color:rgb(75,175,195);
     h3{
       font-size: 40px;
       font-weight: 500;
@@ -145,9 +175,13 @@ const autoplay = ref(true)
       font-size: 20px;
     }
   }
+  .sw{
+    height: 500px;
+  }
   .btn{
     display: flex;
     margin-bottom: 100px;
+    margin-top: 30px;
   }
   .box1{
     width: 100px;
@@ -171,23 +205,19 @@ const autoplay = ref(true)
       color: white;
     }
   }
-  .cards{
-    width: 80%;
-    margin: 5px 0 20px 0;
-    .q-card{
-      margin: 10px;
-    }
-  }
 }
 
 // 魚種圖鑑 --------------------------------------------------------------
 .fish{
   background: url(../../../images/bg-1.jpg) no-repeat center/cover;
-  height: 100vh;
   position: relative;
+  padding-top: 100px;
+  padding-bottom: 80px;
   .text{
     padding-top: 100px;
     text-align: center;
+    color:rgb(75,175,195);
+    text-shadow: 0 0px 10px white;
     h3{
       font-size: 40px;
       font-weight: 500;
@@ -212,23 +242,93 @@ const autoplay = ref(true)
     height: 50px;
     background: url(../../../images/wave.png) center repeat-x;
   }
-}
+  .contant{
+    width: 80%;
+    height: 100%;
+    margin: auto;
 
-@media (min-width:600px) {
-.card{
-  .cards{
-    .q-card{
-      margin: 12px;
+    .left{
+      // border: 1px solid white;
+      margin-bottom: 80px;
+      .title{
+        color: rgb(15,85,165);
+        font-size: 20px;
+        border-left: 5px solid rgb(15,85,165);
+        text-indent: 1rem;
+      }
+      .slogin{
+        color: white;
+        font-weight: 700;
+        font-size: 30px;
+        text-shadow: 0 5px 5px rgb(30,180,210);
+      }
+      .l-text{
+        color: rgb(15,85,165);
+        line-height: 1.5rem;
+      }
     }
   }
 }
+
+@media (min-width:600px) {
+  .fish{
+    .contant{
+      .left{
+        .slogin{
+          font-size: 40px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width:819px) {
+  .fish{
+    .contant{
+      .left{
+        .title{
+          font-size: 20px;
+        }
+        .slogin{
+          font-size: 45px;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width:1024px) {
 .card{
-  .cards{
-    .q-card{
-      margin: 20px;
+  height: 100vh;
+  .sw{
+    height: 450px;
+  }
+  .btn{
+    margin-top: 0;
+  }
+}
+}
+
+@media (min-width:1500px) {
+.carousel{
+  .q-carousel{
+    width: 80%;
+  }
+}
+.fish{
+  height: 100vh;
+  .contant{
+    width: 65%;
+    flex-direction: row;
+    .left{
+      .title{
+        font-size: 30px;
+      }
+      .l-text{
+        font-size: 20px;
+        padding-right: 100px;
+        line-height: 2rem;
+      }
     }
   }
 }

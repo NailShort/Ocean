@@ -23,7 +23,7 @@
             </li>
 
             <q-list>
-              <q-item clickable v-ripple to="/admin/article">
+              <q-item clickable v-ripple to="/member/mine">
                 <q-item-section avatar>
                   <q-icon name="description" />
                 </q-item-section>
