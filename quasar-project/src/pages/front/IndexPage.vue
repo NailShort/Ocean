@@ -1,5 +1,7 @@
 <template>
   <div id="index">
+    <!-- top 按鈕 -->
+    <q-btn class="top-btn" icon="assistant_navigation" label="TOP"  stack glossy color="primary" to="/"/>
     <!-- 輪播圖 ------------------------------------------------------------------->
     <div class="carousel">
       <q-carousel
@@ -87,6 +89,53 @@
       </div>
     </div>
 
+    <!-- 視差、贊助 ----------------------------------------------------------->
+    <div class="parallax row justify-between">
+      <div class="sea"></div>
+      <q-parallax src="../../../images/par-bg.jpg">
+    </q-parallax>
+    </div>
+    <div class="par-white">
+      <div class="news row justify-evenly">
+        <NewsSwiper></NewsSwiper>
+      </div>
+      <div class="sponsor row warp justify-between">
+
+        <div class="box col-12 col-sm-6 col-lg-3">
+          <a href="https://www.ph84.idv.tw/forum/" target="_blank">
+            <div class="img">
+              <img src="../../../images/PH8.4.png" style="width: 100%; height: 100%;">
+            </div>
+          </a>
+        </div>
+
+        <div class="box col-12 col-sm-6 col-lg-3">
+          <a href="https://redseafish.com/" target="_blank">
+            <div class="img">
+              <img src="../../../images/RedSea.png" style="width: 100%; height: 100%;">
+            </div>
+          </a>
+        </div>
+
+        <div class="box col-12 col-sm-6 col-lg-3">
+          <a href="https://www.cmfish.com/index.php" target="_blank">
+            <div class="img">
+              <img src="../../../images/海友網.png" style="width: 100%; height: 100%;">
+            </div>
+          </a>
+        </div>
+
+        <div class="box col-12 col-sm-6 col-lg-3">
+          <a href="https://www.hikari-tw.com/" target="_blank">
+            <div class="img">
+              <img src="../../../images/高夠力.png" style="width: 100%; height: 100%;">
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -97,6 +146,7 @@ import Swal from 'sweetalert2'
 // import ProductCard from '../../components/ProductCard.vue'
 import SwiperCard from '../../components/SwiperCard.vue'
 import FishSwiper from '../../components/FishSwiper.vue'
+import NewsSwiper from '../../components/NewsSwiper.vue'
 
 const products = reactive([]);
 
@@ -123,6 +173,13 @@ const autoplay = ref(true)
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
 *{
   font-family: 'Noto Sans TC', sans-serif;
+}
+
+.top-btn{
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  z-index: 6000;
 }
 
 #index{
@@ -231,14 +288,13 @@ const autoplay = ref(true)
     position: absolute;
     top: -5px;
     height: 100px;
-    width: 100vw;
+    width: 100%;
     background: linear-gradient(rgb(124, 245, 252),rgba(255,255,255,0));
-
   }
   .wave{
     position: absolute;
     top: -50px;
-    width: 100vw;
+    width: 100%;
     height: 50px;
     background: url(../../../images/wave.png) center repeat-x;
   }
@@ -265,6 +321,45 @@ const autoplay = ref(true)
       .l-text{
         color: rgb(15,85,165);
         line-height: 1.5rem;
+      }
+    }
+  }
+}
+
+// parallax 視差
+.parallax{
+  position: relative;
+  .sea{
+    position: absolute;
+    z-index: 50;
+    top: -100px;
+    height: 200px;
+    width: 100%;
+    background: linear-gradient(rgba(255,255,255,0),rgb(20, 155, 195),rgba(255,255,255,0));
+  }
+}
+.par-white{
+  width: 100%;
+  background: white;
+  position: relative;
+  .news{
+    position: absolute;
+    top: -250px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 500px;
+  }
+  .sponsor{
+    padding: 300px 0 50px 0;
+    margin: auto;
+    width: 70%;
+    .img{
+      padding: 5px 10px 5px 10px;
+      border-radius: 5px;
+      img{
+        box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+        border-radius: 5px;
       }
     }
   }

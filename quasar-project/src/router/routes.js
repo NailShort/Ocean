@@ -44,6 +44,16 @@ const routes = [
           login: false,
           admin: false
         }
+      },
+      {
+        path: '/article',
+        name: 'article',
+        component: () => import('pages/front/ArticlePage.vue'),
+        meta: {
+          title: 'Ocean | 文章討論',
+          login: false,
+          admin: false
+        }
       }
     ]
   },

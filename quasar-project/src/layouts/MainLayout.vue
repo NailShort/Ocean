@@ -55,7 +55,7 @@
 
       <q-tabs align="left">
         <q-route-tab to="/" label="首頁" />
-        <q-route-tab to="/" label="文章討論" />
+        <q-route-tab to="/article" label="文章討論" />
         <q-route-tab to="/" label="魚種圖鑑" />
         <q-route-tab to="/" label="最新消息" />
         <q-route-tab to="/" label="聯絡我們" />
@@ -128,10 +128,23 @@
       <router-view />
     </q-page-container>
 
-    <q-footer class="text-white">
-      <div class="left"></div>
-      <div class="line"></div>
-      <div class="right">
+    <q-footer class="text-white row warp">
+      <div class="left row col-12 col-sm-9 flex flex-center">
+        <div class="map left-box col-12 col-sm-6">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7394503702526!2d121.41731178916736!3d25.04291476457007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a7bec9ad74b1%3A0xa639904a89f26435!2z5Yue5YuV6YOo5Yue5YuV5Yqb55m85bGV572y5YyX5Z-65a6c6Iqx6YeR6aas5YiG572y5rOw5bGx6IG35qWt6KiT57e05aC0!5e0!3m2!1szh-TW!2stw!4v1676271720534!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="left-box col-12 col-sm-6">
+          <ul class="row warp">
+            <li class="col-3 col-sm-12 col-md-6 col-lg-3 q-pb-md"><a href="">文章討論</a></li>
+            <li class="col-3 col-sm-12 col-md-6 col-lg-3 q-pb-md"><a href="">魚種圖鑑</a></li>
+            <li class="col-3 col-sm-12 col-md-6 col-lg-3 q-pb-md"><a href="">最新消息</a></li>
+            <li class="col-3 col-sm-12 col-md-6 col-lg-3 q-pb-md"><a href="">聯絡我們</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="right col-12 col-sm-3 flex flex-center">
+        <div class="line"></div>
         <div class="logo">
           <img src="https://cdn-icons-png.flaticon.com/128/3313/3313341.png">
           <span>Ocean</span>
@@ -278,46 +291,84 @@ const fab1 = ref(false)
 
 // footer --------------------------------------------------------
 .q-footer{
-  background: rgb(15,85,165);
-  height: 250px;
+  background:linear-gradient(rgba(15,85,165,0.6), rgba(15,85,165,1)), url(../../images/footer.jpg) no-repeat center/cover;
   position: relative;
+  .left{
+    padding: 0 20px 0 20px;
+    // border: 1px solid yellow;
+    .left-box{
+      padding: 10px;
+      ul{
+        list-style: none;
+        a{
+          display: block;
+          text-decoration: none;
+          font-size: 18px;
+          color: white;
+        }
+      }
+    }
+    .map{
+      height: 220px;
+      iframe{
+        width: 100% !important;
+        height: 100% !important;
+      }
+    }
+  }
+  .right{
+    position: relative;
+    // border: 1px solid red;
+    .line{
+      position: absolute;
+      height: 1px;
+      width: 80%;
+      background: rgb(207, 207, 207);
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .logo{
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      font-size: 20px;
+      line-height: 20px;
+      margin: 20px 0 20px 0;
+      img{
+        width: 80px;
+        height: 80px;
+      }
+    }
+  }
 }
 
-.q-footer .left{
-  width: 65%;
-  height: 250px;
-  float: left;
-  // border: 1px solid white;
+@media (min-width:600px) {
+  .q-footer{
+    height: 250px;
+  .right{
+    .line{
+      position: absolute;
+      height: 80%;
+      width: 1px;
+      background: rgb(207, 207, 207);
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+    .logo{
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      font-size: 20px;
+      line-height: 20px;
+      img{
+        width: 80px;
+        height: 80px;
+      }
+    }
+  }
 }
-
-.q-footer .line{
-  height: 200px;
-  width: 1px;
-  background: rgb(207, 207, 207);
-  position: absolute;
-  left: 70%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.q-footer .right{
-  width: 25%;
-  height: 250px;
-  float: right;
-  // border: 1px solid white;
-}
-
-.q-footer .logo{
-  width: 100px;
-  text-align: center;
-  font-size: 20px;
-  line-height: 20px;
-}
-
-.q-footer .logo img{
-  width: 80px;
-}
-@media (min-width:555px) {
-
 }
 
 @media (min-width:1024px) {
