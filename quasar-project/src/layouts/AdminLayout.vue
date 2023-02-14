@@ -37,7 +37,7 @@
                 <q-item-section>魚種圖鑑管理</q-item-section>
               </q-item>
 
-              <q-item clickable v-ripple to="/admin/news">
+              <q-item clickable v-ripple to="/admin/latests">
                 <q-item-section avatar>
                   <q-icon name="newspaper" />
                 </q-item-section>

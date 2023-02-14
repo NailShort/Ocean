@@ -92,9 +92,9 @@ const routes = [
         }
       },
       {
-        path: 'news',
+        path: 'latests',
         name: 'admin-news',
-        component: () => import('pages/admin/NewsPage.vue'),
+        component: () => import('src/pages/admin/LatestsPage.vue'),
         meta: {
           title: 'Ocean | 最新消息管理',
           login: true,

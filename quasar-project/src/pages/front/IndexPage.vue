@@ -23,6 +23,14 @@
     </q-carousel>
     <div class="sh"></div>
     <div class="wave"></div>
+    <div class="text">
+      <h1>OCEAN</h1>
+      <p>coral reef fish</p>
+    </div>
+    <div class="btn">
+      <q-btn style="background: white; color: rgb(15,85,165)" label="文章討論" />
+      <q-btn outline style="color: white;" label="魚種圖鑑" />
+    </div>
     </div>
 
     <!-- 熱門文章 -------------------------------------------------------------->
@@ -171,6 +179,7 @@ const autoplay = ref(true)
 
 <style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 *{
   font-family: 'Noto Sans TC', sans-serif;
 }
@@ -194,7 +203,7 @@ const autoplay = ref(true)
   background: linear-gradient(rgba(30,180,210,1),rgba(15,85,165,1));
   position: relative;
   .q-carousel{
-    height: 100vh;
+    height: 80vh;
     width: 100%;
     margin: auto;
   }
@@ -211,6 +220,47 @@ const autoplay = ref(true)
     background: url(https://sunshinecity.jp/themes/aquarium@sunshine/resource/common/images/bg/bg_contents_cmn_pc_01.png) center repeat-x;
     position: absolute;
     bottom: -10px;
+  }
+  .text{
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-family: 'Noto Sans TC', sans-serif;
+    text-align: center;
+    line-height: 0px;
+    // border: 1px solid white;
+    h1{
+      font-size: 15vw;
+      font-weight: 900;
+      color: white;
+      margin: 0;
+      text-shadow: 0 0 30px rgba(15,85,165,0.9);
+    }
+    p{
+      font-size: 7vw;
+      font-weight: 900;
+      color: transparent;
+      margin: 0;
+      color: transparent;
+      -webkit-text-stroke: 0.5px #fff;
+      text-shadow: 0 0 15px rgba(15,85,165,0.9);
+    }
+  }
+  .btn{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 100%;
+    text-align: center;
+    q-btn{
+      display: flex;
+    }
+    button{
+      margin: 10px;
+      box-shadow: 0 0 15px rgba(15,85,165,0.9);
+    }
   }
 }
 
@@ -366,6 +416,20 @@ const autoplay = ref(true)
 }
 
 @media (min-width:600px) {
+  .carousel{
+    .q-carousel{
+      height: 100vh;
+    }
+    .text{
+      top: 30%;
+      left: 50%;
+      line-height: 50px;
+    }
+    .btn{
+      top: 42%;
+    }
+  }
+
   .fish{
     .contant{
       .left{
@@ -378,6 +442,16 @@ const autoplay = ref(true)
 }
 
 @media (min-width:819px) {
+  .carousel{
+    .text{
+      top: 50%;
+      left: 50%;
+      line-height: 100px;
+    }
+    .btn{
+      top: 65%;
+    }
+  }
   .fish{
     .contant{
       .left{
@@ -393,6 +467,27 @@ const autoplay = ref(true)
 }
 
 @media (min-width:1024px) {
+  .carousel{
+    .text{
+      top: 60%;
+      left: 35%;
+      text-align: left;
+      line-height: 150px;
+      h1{
+        font-size: 160px;
+      }
+      p{
+        font-size: 70px;
+        text-indent: 1rem;
+      }
+    }
+    .btn{
+      text-align: left;
+      width: 500px;
+      left: 34%;
+      top: 73%;
+    }
+  }
 .card{
   height: 100vh;
   .sw{
