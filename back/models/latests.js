@@ -6,9 +6,8 @@ const schema = new Schema({
     required: [true, '缺少標題']
   },
   time: {
-    type: Number,
-    min: [0, '價格錯誤'],
-    required: [true, '缺少日期']
+    type: String,
+    required: [true, '缺少時間']
   },
   description: {
     type: String,

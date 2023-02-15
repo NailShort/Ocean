@@ -23,7 +23,8 @@
               </td>
               <td>{{ product.name }}</td>
               <td >
-                <q-btn color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
+                <q-btn round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
+                <q-btn round color="red" icon="delete" @click="deleteProduct(product._id)"></q-btn>
               </td>
             </tr>
           </tbody>
@@ -191,6 +192,25 @@ const submit = async () => {
   }
 
   form.loading = false
+}
+
+const deleteProduct = async (id) => {
+  try {
+    await apiAuth.delete(`/products/${id}`)
+    const index = products.findIndex((item) => item._id === id)
+    products.splice(index, 1)
+    Swal.fire({
+      icon: 'success',
+      title: '成功',
+      text: '刪除成功'
+    })
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error?.response?.data?.message || '發生錯誤'
+    })
+  }
 }
 
 (async () => {

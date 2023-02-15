@@ -1,15 +1,15 @@
 <template>
-  <div id="product">
+  <div id="fish">
     <div class="row">
       <div class="col-10">
-        <h1>{{ product.name }}</h1>
+        <h1>{{ fish.name }}</h1>
       </div>
       <div class="col-10">
-        <img :src="product.image">
+        <img :src="fish.image">
       </div>
       <div class="col-10">
-        <p>${{ product.price }}</p>
-        <p class="pre">{{ product.description }}</p>
+        <p>${{ fish.time }}</p>
+        <p class="pre">{{ fish.description }}</p>
       </div>
       <div class="col-10">
       <q-form @submit="submitLike">
@@ -19,7 +19,7 @@
           type="number"
           label="數量"
           lazy-rules
-          :rules="[rules.required, rules.number]"
+          :rules="[rules.required]"
         />
         <q-btn type="submit" color="primary" label="送出"/>
       </q-form>
@@ -38,26 +38,19 @@ import { reactive, ref } from 'vue'
 import { api } from '../../../plugins/axios'
 import { useRoute, useRouter } from 'vue-router'
 import { Swal } from 'sweetalert2'
-import { useUserStore } from '../../stores/user'
 
 const route = useRoute()
 const router = useRouter()
-
-const user = useUserStore()
-const { editLike } = user
 
 const quantity = ref(0)
 
 const rules = {
   required (value) {
     return !!value || '欄位必填'
-  },
-  number (value) {
-    return value > 0 || '數量錯誤'
   }
 }
 
-const product = reactive({
+const fish = reactive({
   _id: '',
   name: '',
   price: 0,
@@ -65,24 +58,19 @@ const product = reactive({
   image: '',
   sell: true,
   category: ''
-})
-
-const submitLike = () => {
-  editLike({ _id: product._id, quantity: quantity.value })
-}
+});
 
 (async () => {
   try {
-    const { data } = await api.get('/products/' + route.params.id)
-    product._id = data.result._id
-    product.name = data.result.name
-    product.price = data.result.price
-    product.description = data.result.description
-    product.image = data.result.image
-    product.sell = data.result.sell
-    product.category = data.result.category
+    const { data } = await api.get('/fishs/' + route.params.id)
+    fish._id = data.result._id
+    fish.name = data.result.name
+    fish.time = data.result.time
+    fish.description = data.result.description
+    fish.image = data.result.image
+    fish.sell = data.result.sell
 
-    document.title = '購物網 | 商品 | ' + product.name
+    document.title = 'Ocean | 最新消息 | ' + fish.name
     // document.querySelector('meta[property="og:title"]').setAttribute('content', product.name)
   } catch (error) {
     Swal.fire({
@@ -100,7 +88,7 @@ const submitLike = () => {
 .pre{
   white-space: pre;
 }
-#product{
+#fish{
   display: flex;
   justify-content: center;
   position: relative;

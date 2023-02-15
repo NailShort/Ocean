@@ -13,6 +13,7 @@
             <tr align="left">
               <th>圖片</th>
               <th>名稱</th>
+              <th>日期</th>
               <th>管理</th>
             </tr>
           </thead>
@@ -22,8 +23,10 @@
                 <img :src="latest.image"  :width="100">
               </td>
               <td>{{ latest.name }}</td>
+              <td>{{ latest.time }}</td>
               <td >
-                <q-btn color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
+                <q-btn round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
+                <q-btn round color="red" icon="delete" @click="deleteLatest(latest._id)"></q-btn>
               </td>
             </tr>
           </tbody>
@@ -50,11 +53,10 @@
               <!-- 價格 -->
               <q-input
                 filled
-                type="number"
                 v-model="form.time"
                 label="時間"
                 lazy-rules
-                :rules="[rules.required, rules.time]"
+                :rules="[rules.required]"
               />
               <!-- 說明 -->
               <q-input
@@ -99,9 +101,6 @@ import Swal from 'sweetalert2'
 const rules = {
   required (value) {
     return !!value || '欄位必填'
-  },
-  time (value) {
-    return value >= 0 || '價格錯誤'
   }
 }
 
@@ -109,7 +108,7 @@ const latests = reactive([])
 const form = reactive({
   _id: '',
   name: '',
-  time: 0,
+  time: '',
   description: '',
   image: undefined,
   sell: false,
@@ -119,11 +118,14 @@ const form = reactive({
   idx: -1
 })
 
+const dt = new Date()
+const day = `${dt.getFullYear()}年${dt.getMonth() + 1}月${dt.getDate()}日`
+
 const openDialog = (idx) => {
   if (idx === -1) {
     form._id = ''
     form.name = ''
-    form.time = 0
+    form.time = day
     form.description = ''
     form.image = undefined
     form.sell = false
@@ -183,6 +185,25 @@ const submit = async () => {
   }
 
   form.loading = false
+}
+
+const deleteLatest = async (id) => {
+  try {
+    await apiAuth.delete(`/latests/${id}`)
+    const index = latests.findIndex((item) => item._id === id)
+    latests.splice(index, 1)
+    Swal.fire({
+      icon: 'success',
+      title: '成功',
+      text: '刪除成功'
+    })
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error?.response?.data?.message || '發生錯誤'
+    })
+  }
 }
 
 (async () => {

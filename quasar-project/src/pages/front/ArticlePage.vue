@@ -10,16 +10,8 @@
       </div>
     </div>
 
-    <div class="art col-12 row justify-center items-center" v-for="product in products" :key="product._id">
+    <div class="art col-6 row warp justify-center items-center" v-for="product in products" :key="product._id">
       <ArticleCard v-bind="product"></ArticleCard>
-    </div>
-
-    <div class="art02 col-12 row justify-center items-center">
-      <q-table
-        :rows="rows"
-        :columns="columns"
-        row-key="name"
-      />
     </div>
 
   </div>
@@ -30,6 +22,19 @@ import { reactive } from 'vue'
 import { api } from 'app/plugins/axios'
 import ArticleCard from '../../components/ArticleCard.vue'
 import Swal from 'sweetalert2'
+
+(async () => {
+  try {
+    const { data } = await api.get('/products')
+    products.push(...data.result)
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error?.response?.data?.message || '發生錯誤'
+    })
+  }
+})()
 
 defineProps({
   /* eslint-disable */
@@ -64,59 +69,7 @@ defineProps({
   }
 })
 
-const products = reactive([]);
-
-(async () => {
-  try {
-    const { data } = await api.get('/products')
-    products.push(...data.result)
-  } catch (error) {
-    Swal.fire({
-      icon: 'error',
-      title: '失敗',
-      text: error?.response?.data?.message || '發生錯誤'
-    })
-  }
-})()
-</script>
-
-<!-- q-table ----------------------------------------------------------------------->
-<script>
-
-const columns = [
-  {
-    name: 'name',
-    required: true,
-    label: '分類類別',
-    align: 'left',
-    field: row => row.category,
-    format: val => `${val}`,
-    sortable: true
-  },
-  { name: 'image', align: 'center', label: '預覽照片', field: 'image', sortable: true },
-  { name: 'fat', label: '主題名稱', field: 'name', sortable: true },
-  { name: 'carbs', label: '文章內容', field: 'description' },
-  { name: 'protein', label: '收藏', field: 'time' }
-]
-
-const rows = [
-  {
-    category: 'Frozen Yogurt',
-    image: 159,
-    name: 6.0,
-    description: 24,
-    time: 4.0
-  }
-]
-
-export default {
-  setup () {
-    return {
-      columns,
-      rows
-    }
-  }
-}
+const products = reactive([])
 
 </script>
 
@@ -131,15 +84,5 @@ export default {
       margin-top: 20px;
     }
   }
-  @media(max-width:600px){
-    .art02{
-      display:none;
-    }
-  }
 
-  @media(min-width:600px){
-    .art{
-      display:none;
-    }
-  }
 </style>

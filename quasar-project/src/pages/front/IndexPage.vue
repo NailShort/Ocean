@@ -101,11 +101,15 @@
     <div class="parallax row justify-between">
       <div class="sea"></div>
       <q-parallax src="../../../images/par-bg.jpg">
+        <div class="text col-12">
+        <h3>最新消息</h3>
+        <span>Latest News</span>
+      </div>
     </q-parallax>
     </div>
     <div class="par-white">
       <div class="news row justify-evenly">
-        <NewsSwiper></NewsSwiper>
+        <LatestsSwiper></LatestsSwiper>
       </div>
       <div class="sponsor row warp justify-between">
 
@@ -154,7 +158,7 @@ import Swal from 'sweetalert2'
 // import ProductCard from '../../components/ProductCard.vue'
 import SwiperCard from '../../components/SwiperCard.vue'
 import FishSwiper from '../../components/FishSwiper.vue'
-import NewsSwiper from '../../components/NewsSwiper.vue'
+import LatestsSwiper from '../../components/LatestsSwiper.vue'
 
 const products = reactive([]);
 
@@ -319,7 +323,7 @@ const autoplay = ref(true)
   background: url(../../../images/bg-1.jpg) no-repeat center/cover;
   position: relative;
   padding-top: 100px;
-  padding-bottom: 80px;
+  padding-bottom: 100px;
   .text{
     padding-top: 100px;
     text-align: center;
@@ -379,11 +383,25 @@ const autoplay = ref(true)
 // parallax 視差
 .parallax{
   position: relative;
+  .text{
+    padding-top: 100px;
+    text-shadow: 0px 5px 5px rgba(0,0,0,0.9),0 0 10px rgba(15,85,165,0.9);
+    text-align: center;
+    color:white;
+    h3{
+      font-size: 40px;
+      font-weight: 500;
+      margin: 0;
+    }
+    span{
+      font-size: 20px;
+    }
+  }
   .sea{
     position: absolute;
     z-index: 50;
-    top: -100px;
-    height: 200px;
+    top: -75px;
+    height: 150px;
     width: 100%;
     background: linear-gradient(rgba(255,255,255,0),rgb(20, 155, 195),rgba(255,255,255,0));
   }
@@ -394,7 +412,7 @@ const autoplay = ref(true)
   position: relative;
   .news{
     position: absolute;
-    top: -250px;
+    top: -300px;
     left: 50%;
     transform: translateX(-50%);
     width: 70%;
@@ -418,7 +436,7 @@ const autoplay = ref(true)
 @media (min-width:600px) {
   .carousel{
     .q-carousel{
-      height: 100vh;
+      height: 80vh;
     }
     .text{
       top: 30%;
@@ -443,6 +461,9 @@ const autoplay = ref(true)
 
 @media (min-width:819px) {
   .carousel{
+    .q-carousel{
+      height: 100vh;
+    }
     .text{
       top: 50%;
       left: 50%;

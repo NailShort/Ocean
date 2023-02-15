@@ -1,11 +1,13 @@
 <template>
       <q-card class="my-card">
         <div class="img">
+          <router-link :to="'/fish/' + _id">
           <img :src="image"/>
+        </router-link>
           <div class="text absolute-bottom text-subtitle2 text-center">
-          <p>{{ name }} <span style="font-size: 10px; color: lightyellow;">{{ egname }}</span></p>
-
-          <p></p>
+            <router-link :to="'/fish/' + _id">
+              <p>{{ name }} <span style="font-size: 10px; color: lightyellow;">{{ egname }}</span></p>
+            </router-link>
         </div>
         </div>
 
@@ -73,6 +75,12 @@ _id: {
       border-radius: 0 0 15px 15px;
       line-height: 50px;
       font-size: 20px;
+      p{
+        color: white;
+      }
+      a{
+        text-decoration: none;
+      }
     }
   }
 

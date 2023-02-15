@@ -3,7 +3,7 @@ import content from '../middleware/content.js'
 import admin from '../middleware/admin.js'
 import upload from '../middleware/upload.js'
 import { jwt } from '../middleware/auth.js'
-import { createFish, getAllFishs, getFish, getSellFishs, editFish } from '../controllers/fishs.js'
+import { createFish, getAllFishs, getFish, getSellFishs, editFish, deletFish } from '../controllers/fishs.js'
 
 const router = Router()
 
@@ -13,5 +13,6 @@ router.get('/', getSellFishs) // 取上架商品
 router.get('/all', jwt, admin, getAllFishs) // 取所有商品，管理員用
 router.get('/:id', getFish) // 取單個商品
 router.patch('/:id', content('multipart/form-data'), jwt, admin, upload, editFish) // 編輯商品
+router.delete('/:id', jwt, admin, upload, deletFish) // 刪除商品
 
 export default router

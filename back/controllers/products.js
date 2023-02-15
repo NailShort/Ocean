@@ -85,3 +85,24 @@ export const editProduct = async (req, res) => {
     }
   }
 }
+
+// 刪除商品
+export const deletProduct = async (req, res) => {
+  try {
+    const result = await products.findByIdAndDelete(req.params.id)
+
+    if (!result) {
+      res.status(404).json({ success: false, message: '找不到' })
+    } else {
+      res.status(200).json({ success: true, message: '' })
+    }
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ success: false, message: error.errors[Object.keys(error.errors)[0]].message })
+    } else if (error.name === 'CastError') {
+      res.status(404).json({ success: false, message: '找不到' })
+    } else {
+      res.status(500).json({ success: false, message: '未知錯誤' })
+    }
+  }
+}

@@ -38,9 +38,29 @@ const routes = [
       {
         path: 'products/:id',
         name: 'products',
-        component: () => import('pages/front/ProductPage.vue'),
+        component: () => import('src/pages/front/ProductPage.vue'),
         meta: {
           title: 'Ocean | 商品',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: 'latest/:id',
+        name: 'latest',
+        component: () => import('src/pages/front/InLatestPage.vue'),
+        meta: {
+          title: 'Ocean | 最新消息',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: 'fish/:id',
+        name: 'fish',
+        component: () => import('src/pages/front/InfishPage.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑',
           login: false,
           admin: false
         }
