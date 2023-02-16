@@ -39,32 +39,24 @@
         <h3>熱門文章</h3>
         <span>Hot Articles</span>
       </div>
+
+      <!-- 文章按鈕 -->
+        <div class="btn col-12 justify-center items-center">
+          <q-btn class="col-12" v-for="fish,index in articleCategory" outline rounded color="primary" :key="index" :label="fish" @click="fishActive=fish" />
+        </div>
+
       <!-- 卡片 -->
       <div class="sw col12" style="width: 70%; background: transparent;">
-        <SwiperCard></SwiperCard>
+        <SwiperCard :fishActive="fishActive"></SwiperCard>
       </div>
+
+    </div>
 
       <!-- <div class="col-12 row justify-center" >
       <div class="cards justify-center" style="width: 300px;" v-for="product in products" :key="product._id">
         <ProductCard v-bind="product" ></ProductCard>
       </div>
     </div> -->
-      <!-- 文章按鈕 -->
-      <div class="btn col-12 justify-center items-start">
-        <div class="box1">
-          <a href="#">海水魚類</a>
-        </div>
-        <div class="box1">
-          <a href="#">珊瑚軟體</a>
-        </div>
-        <div class="box1">
-          <a href="#">硬體設備</a>
-        </div>
-        <div class="box1">
-          <a href="#">二手分享</a>
-        </div>
-      </div>
-    </div>
 
     <!-- 魚種圖鑑 ------------------------------------------------------------->
     <div class="fish">
@@ -100,7 +92,7 @@
     <!-- 視差、贊助 ----------------------------------------------------------->
     <div class="parallax row justify-between">
       <div class="sea"></div>
-      <q-parallax src="../../../images/par-bg.jpg">
+      <q-parallax src="../../../images/par-bg.jpg" style="height: 600px;">
         <div class="text col-12">
         <h3>最新消息</h3>
         <span>Latest News</span>
@@ -152,32 +144,20 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
-import { api } from 'app/plugins/axios'
-import Swal from 'sweetalert2'
+import { ref } from 'vue'
 // import ProductCard from '../../components/ProductCard.vue'
 import SwiperCard from '../../components/SwiperCard.vue'
 import FishSwiper from '../../components/FishSwiper.vue'
 import LatestsSwiper from '../../components/LatestsSwiper.vue'
 
-const products = reactive([]);
-
-(async () => {
-  try {
-    const { data } = await api.get('/products')
-    products.push(...data.result)
-  } catch (error) {
-    Swal.fire({
-      icon: 'error',
-      title: '失敗',
-      text: error?.response?.data?.message || '發生錯誤'
-    })
-  }
-})()
-
 const slide = ref(1)
 // const slide02 = ref(1)
 const autoplay = ref(true)
+
+// Btn - 分類陣列
+const articleCategory = ['所有文章', '海水魚類', '珊瑚軟體', '硬體設備', '二手分享']
+
+const fishActive = ref(articleCategory[0])
 
 </script>
 
@@ -287,33 +267,20 @@ const autoplay = ref(true)
     }
   }
   .sw{
-    height: 500px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+    .swiper-pagination {
+        top: 10px;
+    }
   }
   .btn{
     display: flex;
-    margin-bottom: 100px;
-    margin-top: 30px;
-  }
-  .box1{
-    width: 100px;
-    height: 50px;
-    border: 1px solid rgba(15,85,165,1);
-    background: white;
-    border-radius: 30px;
-    line-height: 50px;
-    text-align: center;
-    margin: 0 10px 0 10px;
-  }
-  a{
-    text-decoration: none;
-    color: rgb(15,85,165);
-    display: block;
-    border-radius: 30px;
-    font-size: 14px;
-    letter-spacing:1px;
-    &:hover{
-      background: rgb(15,85,165);
-      color: white;
+    flex-direction: row;
+    margin-bottom: 0px;
+    margin-top: 10px;
+    .q-btn{
+      margin: 3px;
+      padding: 5px;
     }
   }
 }
@@ -384,7 +351,8 @@ const autoplay = ref(true)
 .parallax{
   position: relative;
   .text{
-    padding-top: 100px;
+    background:linear-gradient(rgb(15,85,165)30%,rgba(255,255,255,0)60%);
+    padding: 100px 20px 0 20px;
     text-shadow: 0px 5px 5px rgba(0,0,0,0.9),0 0 10px rgba(15,85,165,0.9);
     text-align: center;
     color:white;
@@ -412,14 +380,14 @@ const autoplay = ref(true)
   position: relative;
   .news{
     position: absolute;
-    top: -300px;
+    top: -400px;
     left: 50%;
     transform: translateX(-50%);
     width: 70%;
     height: 500px;
   }
   .sponsor{
-    padding: 300px 0 50px 0;
+    padding: 200px 0 50px 0;
     margin: auto;
     width: 70%;
     .img{
@@ -447,6 +415,14 @@ const autoplay = ref(true)
       top: 42%;
     }
   }
+  .card{
+    .btn{
+      .q-btn{
+        margin: 0 5px;
+        padding: 5px 10px;
+      }
+    }
+  }
 
   .fish{
     .contant{
@@ -471,6 +447,15 @@ const autoplay = ref(true)
     }
     .btn{
       top: 65%;
+    }
+  }
+
+  .card{
+    .btn{
+      .q-btn{
+        margin: 0 10px;
+        padding: 8px 16px;
+      }
     }
   }
   .fish{
@@ -510,12 +495,13 @@ const autoplay = ref(true)
     }
   }
 .card{
-  height: 100vh;
   .sw{
     height: 450px;
+    margin-top: 30px;
+    margin-bottom: 150px;
   }
   .btn{
-    margin-top: 0;
+    margin-top: 30px ;
   }
 }
 }

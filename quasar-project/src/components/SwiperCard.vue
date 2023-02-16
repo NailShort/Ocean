@@ -26,31 +26,45 @@
     :modules="modules"
     class="mySwiper"
   >
-    <swiper-slide v-for="product in products" :key="product._id">
+    <swiper-slide v-for="product in ac" :key="product._id">
         <ProductCard v-bind="product"></ProductCard>
     </swiper-slide>
   </swiper>
 </template>
 
 <!-- script -->
-<script>
+<script setup>
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination } from 'swiper'
 
 // Import Swiper styles
 import 'swiper/css'
 
 import 'swiper/css/effect-cards'
 
-// import required modules
-import { Pagination } from 'swiper'
-
 import ProductCard from './ProductCard.vue'
-import { reactive } from 'vue'
+import { reactive, computed, defineProps } from 'vue'
 import { api } from 'app/plugins/axios'
 import Swal from 'sweetalert2'
 
-const products = reactive([]);
+const products = reactive([])
+
+const modules = [Pagination]
+
+const prpos = defineProps({
+  fishActive: String
+})
+
+const ac = computed(() => {
+  return products.filter((article) => {
+    if (prpos.fishActive === '所有文章') {
+      return article
+    } else {
+      return article.category === prpos.fishActive
+    }
+  })
+});
 
 (async () => {
   try {
@@ -65,19 +79,31 @@ const products = reactive([]);
   }
 })()
 
-export default {
-  components: {
-    Swiper,
-    SwiperSlide,
-    ProductCard
-  },
-  setup () {
-    return {
-      modules: [Pagination],
-      products
-    }
-  }
-}
+// export default {
+//   components: {
+//     Swiper,
+//     SwiperSlide,
+//     ProductCard
+//   },
+//   setup () {
+//     const prpos = defineProps({
+//       fishActive: String
+//     })
+
+//     const aaa = computed(() => {
+//       console.log(prpos)
+//       return products.filter((fish1) => {
+//         return fish1.category === '海水魚類'
+//       })
+//     })
+//     return {
+//       modules: [Pagination],
+//       products,
+//       aaa
+//     }
+//   }
+// }
+
 </script>
 
 <style lang="scss" scoped>

@@ -1,11 +1,14 @@
 <template>
   <div id="Admin">
-    <div class="content column items-center justify-start">
+    <div class="content justify-center" align="center">
       <h4 class="title">魚種圖鑑管理</h4>
 
       <!-- 新增商品 -->
-      <div class="q-pa-md q-gutter-sm">
+      <div class="q-pa-md q-gutter-sm" align="center">
         <q-btn label="新增魚種" color="primary" @click="openDialog(-1)" />
+      </div>
+      <div class="q-pa-md q-gutter-sm col-12" align="center">
+        <q-btn v-for="fish,index in fishCategory" outline rounded color="primary" :key="index" :label="fish" @click="fishActive=fish" />
       </div>
 
         <table style="width: 70%; " border="1">
@@ -20,7 +23,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr align="center" v-for="(fish, idx) in fishs" :key="fish._id">
+            <tr align="center" v-for="(fish, idx) in ac" :key="fish._id">
               <td>
                 <img :src="fish.image"  :width="100">
               </td>
@@ -131,7 +134,7 @@
 
 <script setup>
 import { apiAuth } from '../../../plugins/axios'
-import { reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import Swal from 'sweetalert2'
 
 const categories = ['小丑魚', '倒吊魚', '神仙魚']
@@ -250,7 +253,7 @@ const submit = async () => {
 
   form.loading = false
 }
-
+// 刪除 -----------
 const deleteFish = async (id) => {
   try {
     await apiAuth.delete(`/fishs/${id}`)
@@ -269,6 +272,20 @@ const deleteFish = async (id) => {
     })
   }
 }
+
+// 篩選分類 -------------
+const fishCategory = ['所有魚種', '小丑魚', '倒吊魚', '神仙魚']
+const fishActive = ref(fishCategory[0])
+
+const ac = computed(() => {
+  return fishs.filter((fish1) => {
+    if (fishActive.value === fishCategory[0]) {
+      return fish1
+    } else {
+      return fish1.category === fishActive.value
+    }
+  })
+});
 
 (async () => {
   try {

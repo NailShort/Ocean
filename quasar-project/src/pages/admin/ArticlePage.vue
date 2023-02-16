@@ -1,14 +1,18 @@
 <template>
   <div id="Admin">
-    <div class="content column items-center justify-start">
+    <div class="content justify-center" align="center">
       <h4 class="title">文章討論管理</h4>
 
-      <!-- 新增商品 -->
-      <div class="q-pa-md q-gutter-sm">
+      <!-- 新增商品 ------------------------------------------------>
+      <div class="q-pa-md q-gutter-sm col-12" align="center">
         <q-btn label="新增商品" color="primary" @click="openDialog(-1)" />
       </div>
+      <div class="q-pa-md q-gutter-sm col-12" align="center">
+        <q-btn v-for="fish,index in articleCategory" outline rounded color="primary" :key="index" :label="fish" @click="fishActive=fish" />
+      </div>
 
-        <table style="width: 70%; " border="1">
+      <!-- 表格 ---------------------------------------------------->
+        <table :fishActive="fishActive" style="width: 70%; " border="1">
           <thead>
             <tr align="left">
               <th>圖片</th>
@@ -17,7 +21,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(product, idx) in products" :key="product._id">
+            <tr v-for="(product, idx) in ac" :key="product._id">
               <td>
                 <img :src="product.image"  :width="100">
               </td>
@@ -30,7 +34,7 @@
           </tbody>
         </table>
 
-        <!-- 彈跳視窗 -->
+        <!-- 彈跳視窗 ------------------------------------------------>
         <q-dialog v-model="form.dialog" persistent>
 
           <q-card style="min-width: 700px">
@@ -97,10 +101,11 @@
 
 <script setup>
 import { apiAuth } from '../../../plugins/axios'
-import { reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import Swal from 'sweetalert2'
 
 const categories = ['海水魚類', '珊瑚軟體', '硬體設備', '二手分享']
+
 const rules = {
   required (value) {
     return !!value || '欄位必填'
@@ -193,7 +198,7 @@ const submit = async () => {
 
   form.loading = false
 }
-
+// 刪除 ------
 const deleteProduct = async (id) => {
   try {
     await apiAuth.delete(`/products/${id}`)
@@ -212,6 +217,19 @@ const deleteProduct = async (id) => {
     })
   }
 }
+// 分類篩選 -------
+const articleCategory = ['所有文章', '海水魚類', '珊瑚軟體', '硬體設備', '二手分享']
+const fishActive = ref(articleCategory[0])
+
+const ac = computed(() => {
+  return products.filter((fish1) => {
+    if (fishActive.value === articleCategory[0]) {
+      return fish1
+    } else {
+      return fish1.category === fishActive.value
+    }
+  })
+});
 
 (async () => {
   try {
