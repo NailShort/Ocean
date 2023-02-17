@@ -137,7 +137,7 @@ import { apiAuth } from '../../../plugins/axios'
 import { ref, reactive, computed } from 'vue'
 import Swal from 'sweetalert2'
 
-const categories = ['小丑魚', '倒吊魚', '神仙魚']
+const categories = ['小丑魚', '雀鯛', '倒吊', '小型神仙', '大型神仙', '蝶魚', '砲彈', '箱魨', '魨魚', '青蛙', '隆頭魚', '草莓魚', '海金魚', '蝦虎', '䲁魚', '海馬', '鯊魚']
 const dangers = ['溫和', '具攻擊性', '危險', '同科相殘', '攻擊珊瑚']
 const foods = ['雜食', '肉食', '素食']
 const places = ['印度洋', '紅海']

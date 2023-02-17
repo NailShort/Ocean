@@ -422,6 +422,10 @@ const fishActive = ref(articleCategory[0])
         padding: 5px 10px;
       }
     }
+    .sw{
+      margin-top: 30px;
+      margin-bottom: 130px;
+    }
   }
 
   .fish{
@@ -456,6 +460,10 @@ const fishActive = ref(articleCategory[0])
         margin: 0 10px;
         padding: 8px 16px;
       }
+    }
+    .sw{
+      margin-top: 40px;
+      margin-bottom: 150px;
     }
   }
   .fish{
@@ -497,8 +505,8 @@ const fishActive = ref(articleCategory[0])
 .card{
   .sw{
     height: 450px;
-    margin-top: 30px;
-    margin-bottom: 150px;
+    margin-top: 50px;
+    margin-bottom: 200px;
   }
   .btn{
     margin-top: 30px ;

@@ -116,3 +116,21 @@ export const deletFish = async (req, res) => {
     }
   }
 }
+
+// 取商品分類，查id
+export const getFishCategory = async (req, res) => {
+  try {
+    const result = await fishs.find({ category: req.query.category })
+    if (!result) {
+      res.status(404).json({ success: false, message: '找不到' })
+    } else {
+      res.status(200).json({ success: true, message: '', result })
+    }
+  } catch (error) {
+    if (error.name === 'CastError') { // id 錯誤
+      res.status(404).json({ success: false, message: '找不到' })
+    } else {
+      res.status(500).json({ success: false, message: '未知錯誤' })
+    }
+  }
+}

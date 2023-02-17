@@ -57,7 +57,7 @@ const routes = [
       },
       {
         path: 'fish/:id',
-        name: 'fish',
+        name: 'infoFish',
         component: () => import('src/pages/front/InfishPage.vue'),
         meta: {
           title: 'Ocean | 魚種圖鑑',
@@ -71,6 +71,36 @@ const routes = [
         component: () => import('pages/front/ArticlePage.vue'),
         meta: {
           title: 'Ocean | 文章討論',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/fish',
+        name: 'fish',
+        component: () => import('pages/front/FishPage.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/clownfish',
+        name: 'clownfish',
+        component: () => import('pages/front/fishBook/ClownFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 小丑魚',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/tangfish',
+        name: 'tangfish',
+        component: () => import('pages/front/fishBook/TangFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 倒吊魚',
           login: false,
           admin: false
         }

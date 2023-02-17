@@ -50,7 +50,7 @@
                 lazy-rules
                 :rules="[rules.required]"
               />
-              <!-- 價格 -->
+              <!-- 日期 -->
               <q-input
                 filled
                 v-model="form.time"

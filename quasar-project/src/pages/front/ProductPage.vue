@@ -1,4 +1,5 @@
 <template>
+  <!-- 產品內頁 -->
   <div id="product">
     <div class="row">
       <div class="col-10">

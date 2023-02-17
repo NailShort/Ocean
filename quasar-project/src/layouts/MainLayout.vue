@@ -56,7 +56,7 @@
       <q-tabs align="left">
         <q-route-tab to="/" label="首頁" />
         <q-route-tab to="/article" label="文章討論" />
-        <q-route-tab to="/" label="魚種圖鑑" />
+        <q-route-tab to="/fish" label="魚種圖鑑" />
         <q-route-tab to="/" label="最新消息" />
         <q-route-tab to="/" label="聯絡我們" />
       </q-tabs>

@@ -1,4 +1,5 @@
 <template>
+  <!-- 魚種介紹 -->
   <div id="fish">
     <div class="row">
       <div class="col-10">

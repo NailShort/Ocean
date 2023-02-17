@@ -5,7 +5,7 @@ export const createProduct = async (req, res) => {
   try {
     const result = await products.create({
       name: req.body.name,
-      price: req.body.price,
+      time: req.body.time,
       description: req.body.description,
       image: req.file?.path || '',
       sell: req.body.sell,
@@ -64,7 +64,7 @@ export const editProduct = async (req, res) => {
   try {
     const result = await products.findByIdAndUpdate(req.params.id, {
       name: req.body.name,
-      price: req.body.price,
+      time: req.body.time,
       description: req.body.description,
       image: req.file?.path,
       sell: req.body.sell,

@@ -1,4 +1,5 @@
 <template>
+  <!-- 註冊頁 -->
   <div id="register" style="max-width: 100%">
     <div class="container">
       <div class="login01"></div>

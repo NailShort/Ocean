@@ -17,6 +17,7 @@
             <tr align="left">
               <th>圖片</th>
               <th>名稱</th>
+              <th>日期</th>
               <th>管理</th>
             </tr>
           </thead>
@@ -26,6 +27,7 @@
                 <img :src="product.image"  :width="100">
               </td>
               <td>{{ product.name }}</td>
+              <td>{{ product.time }}</td>
               <td >
                 <q-btn round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
                 <q-btn round color="red" icon="delete" @click="deleteProduct(product._id)"></q-btn>
@@ -52,14 +54,13 @@
                 lazy-rules
                 :rules="[rules.required]"
               />
-              <!-- 價格 -->
+              <!-- 日期 -->
               <q-input
                 filled
-                type="number"
-                v-model="form.price"
+                v-model="form.time"
                 label="價格"
                 lazy-rules
-                :rules="[rules.required, rules.price]"
+                :rules="[rules.required]"
               />
               <!-- 說明 -->
               <q-input
@@ -109,9 +110,6 @@ const categories = ['海水魚類', '珊瑚軟體', '硬體設備', '二手分�
 const rules = {
   required (value) {
     return !!value || '欄位必填'
-  },
-  price (value) {
-    return value >= 0 || '價格錯誤'
   }
 }
 
@@ -119,7 +117,7 @@ const products = reactive([])
 const form = reactive({
   _id: '',
   name: '',
-  price: 0,
+  time: '',
   description: '',
   image: undefined,
   sell: false,
@@ -130,11 +128,14 @@ const form = reactive({
   idx: -1
 })
 
+const dt = new Date()
+const day = `${dt.getFullYear()}年${dt.getMonth() + 1}月${dt.getDate()}日`
+
 const openDialog = (idx) => {
   if (idx === -1) {
     form._id = ''
     form.name = ''
-    form.price = 0
+    form.time = day
     form.description = ''
     form.image = undefined
     form.sell = false
@@ -145,7 +146,7 @@ const openDialog = (idx) => {
   } else {
     form._id = products[idx]._id
     form.name = products[idx].name
-    form.price = products[idx].price
+    form.time = products[idx].time
     form.description = products[idx].description
     form.image = undefined
     form.sell = products[idx].sell
@@ -163,7 +164,7 @@ const submit = async () => {
   // fd.append(key, value)
   const fd = new FormData()
   fd.append('name', form.name)
-  fd.append('price', form.price)
+  fd.append('time', form.time)
   fd.append('description', form.description)
   fd.append('image', form.image)
   fd.append('sell', form.sell)

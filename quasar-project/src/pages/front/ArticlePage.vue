@@ -1,16 +1,11 @@
 <template>
+  <!-- 文章討論頁 -->
   <div id="article">
     <div class=" btn row justify-center items-center">
-      <div class="col-12 row  justify-center">
-        <q-btn flat style="color: rgb(15,85,165)" label="最新文章" />
-        <q-btn flat style="color: rgb(15,85,165)" label="海水魚類" />
-        <q-btn flat style="color: rgb(15,85,165)" label="珊瑚軟體" />
-        <q-btn flat style="color: rgb(15,85,165)" label="硬體設備" />
-        <q-btn flat style="color: rgb(15,85,165)" label="二手分享" />
-      </div>
+      <q-btn v-for="fish,index in articleCategory" flat color="primary" :key="index" :label="fish" @click="fishActive=fish" />
     </div>
 
-    <div class="art col-6 row warp justify-center items-center" v-for="product in products" :key="product._id">
+    <div class="art row warp justify-center items-center" v-for="product in ac" :key="product._id">
       <ArticleCard v-bind="product"></ArticleCard>
     </div>
 
@@ -18,10 +13,26 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { api } from 'app/plugins/axios'
 import ArticleCard from '../../components/ArticleCard.vue'
 import Swal from 'sweetalert2'
+
+const products = reactive([])
+
+// 分類篩選 -------
+const articleCategory = ['所有文章', '海水魚類', '珊瑚軟體', '硬體設備', '二手分享']
+const fishActive = ref(articleCategory[0])
+
+const ac = computed(() => {
+  return products.filter((fish1) => {
+    if (fishActive.value === articleCategory[0]) {
+      return fish1
+    } else {
+      return fish1.category === fishActive.value
+    }
+  })
+});
 
 (async () => {
   try {
@@ -69,19 +80,30 @@ defineProps({
   }
 })
 
-const products = reactive([])
-
 </script>
 
 <style lang="scss" scoped>
   #article{
-    padding-top: 150px;
-    padding-bottom: 150px;
+    padding: 150px 10px;
     .btn{
       margin-bottom: 50px;
+      .q-btn{
+        margin: 0px;
+        padding: 0 15px 0 15px;
+        border-right: 1px solid rgba(0,0,0,0.1);
+        border-left: 1px solid rgba(0,0,0,0.1);
+        border-radius: 0;
+      }
     }
     .art{
       margin-top: 20px;
+    }
+  }
+
+  @media (min-width:819px) {
+    #article{
+      max-width:800px;
+      margin: auto;
     }
   }
 
