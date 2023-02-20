@@ -6,7 +6,7 @@
     </router-link>
       <div class="text absolute-bottom text-subtitle2 text-center">
         <router-link :to="'/fish/' + _id">
-          <p>{{ name }} <span style="font-size: 10px; color: lightyellow;">{{ egname }}</span></p>
+          <p class="name">{{ name }}<br><span class="egname">{{ egname }}</span></p>
         </router-link>
     </div>
     </div>
@@ -56,65 +56,52 @@ default: ''
 </script>
 
 <style lang="scss" scoped>
+.my-card{
+  box-shadow: none;
+  margin: 5px;
+  padding-bottom: 100px;
   .img{
     position: relative;
-    width: 230px;
-    height: 230px;
-    border-radius: 20px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
     background: black;
-    a{
-      border-radius: 20px;
-    }
     img{
       max-width: 100%;
       max-height: 100%;
       display: block;
       margin: auto;
-      border-radius: 15px;
+      border-radius: 50%;
       box-shadow: none;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%,-50%);
     }
-.text{
-  position: absolute;
-  height: 50px;
-  bottom: 5px;
-  background: rgba(0,0,0,0.5);
-  border-radius: 0 0 15px 15px;
-  line-height: 50px;
-  font-size: 20px;
-  p{
-    color: white;
+    .text{
+      position: absolute;
+      height: 50px;
+      bottom: -60px;
+      font-size: 20px;
+      a{
+        text-decoration: none;
+      }
+      .name{
+        color: black;
+      }
+      .egname{
+        text-decoration: none;
+        font-size: 10px;
+        color: black;
+        line-height: 1;
+      }
+    }
   }
-  a{
-    text-decoration: none;
-  }
-}
 }
 
 @media (min-width:600px) {
-.img{
-width: 280px;
-height: 280px;
-border-radius: 20px;
-
-.text{
-  bottom: 0px;
-}
-}
 }
 
 @media (min-width:1500px) {
-.img{
-width: 380px;
-height: 380px;
-border-radius: 20px;
-
-.text{
-  bottom: 0px;
-}
-}
 }
 </style>

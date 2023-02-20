@@ -26,7 +26,7 @@
           rounded
           color="primary"
           :size="size"
-          label="View Moore"
+          label="View More"
         />
       </div>
     </div>

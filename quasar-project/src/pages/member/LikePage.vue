@@ -14,19 +14,15 @@
                 <th>操作</th>
               </tr>
             </thead>
-            <tbody>
-              <tr v-for="(product, idx) in like" :key="product._id" :class="{'bg-red': !product.p_id.sell}">
+            <tbody v-if="like.length">
+              <tr v-for="(product, idx) in like" :key="product._id" :class="{'bg-red': !product.p_id?.sell}">
                 <td>
-                  <img :aspect-ratio="1" :width="200" :src="product.p_id.image">
+                  <img :aspect-ratio="1" :width="200" :src="product.p_id?.image">
                 </td>
-                <td>{{ product.p_id.name }}</td>
-                <td>{{ product.p_id.price }}</td>
-                <td>
-                  <q-btn color="primary" @click="updateLike(idx, -1)" label="-"/>
-                  | &nbsp;{{ product.quantity }}&nbsp;
-                  <q-btn color="primary" @click="updateLike(idx, 1)" label="+"/>
-                </td>
-                <td>{{ product.quantity * product.p_id.price }}</td>
+                <td>{{ product.p_id?.name }}</td>
+                <td>{{ product.p_id?.price }}</td>
+                <td>{{ product.p_id?.price }}</td>
+                <td>{{ product.quantity * product.p_id?.price }}</td>
                 <td>
                   <q-btn color="red" @click="updateLike(idx, product.quantity*-1)" label="刪除"/>
                 </td>
@@ -37,10 +33,6 @@
             </tbody>
           </table>
         </div>
-        <div class="col-10">
-          <p>總金額 {{ totalPrice }}</p>
-          <q-btn color="green" :disabled="!canCheckout" @click="onCheckoutBtnClick" label="結帳"/>
-        </div>
       </div>
 
     </div>
@@ -49,16 +41,13 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 import Swal from 'sweetalert2'
 import { apiAuth } from '../../../plugins/axios'
 import { useUserStore } from '../../stores/user'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 const user = useUserStore()
-const { editLike, checkout } = user
+const { editLike } = user
 
 const like = reactive([])
 
@@ -70,27 +59,18 @@ const updateLike = async (idx, quantity) => {
   }
 }
 
-const onCheckoutBtnClick = async () => {
-  await checkout()
-  router.push('/orders')
-}
-
-const totalPrice = computed(() => {
-  return like.reduce((total, current) => {
-    return total + (current.p_id.price * current.quantity)
-  }, 0)
-})
-
-const canCheckout = computed(() => {
-  return like.length > 0 && like.some(product => {
-    return !product.p_id.sell
-  })
-});
+// const canCheckout = computed(() => {
+//   return like.length > 0 && like.some(product => {
+//     return !product.p_id.sell
+//   })
+// });
 
 (async () => {
   try {
     const { data } = await apiAuth.get('/users/like')
-    like.push(...data.result)
+    like.push(...data.result.filter(l => {
+      return l.p_id
+    }))
   } catch (error) {
     Swal.fire({
       icon: 'error',

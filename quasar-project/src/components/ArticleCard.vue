@@ -129,6 +129,7 @@ const { editLike } = user
         display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
+        color: gray;
       }
     }
     .like{

@@ -79,7 +79,7 @@
             提供照片辨認，及魚友的分享。是鑑賞海水魚時的絕佳工具書。<br>
             不是喜歡就放，必須了解海水魚以挑選能和平相處的魚種，才能避免各種風險。
           </p>
-          <q-btn class="btn" no-caps outline rounded color="primary" label="View More" icon-right="double_arrow" />
+          <q-btn class="btn" no-caps outline rounded color="white" label="View More" icon-right="double_arrow" />
         </div>
         <!-- 圖片 -->
         <div class="right col-8 items-center justify-center">
@@ -341,6 +341,7 @@ const fishActive = ref(articleCategory[0])
       }
       .l-text{
         color: rgb(15,85,165);
+        // color: rgba(255,255,255,0.);
         line-height: 1.5rem;
       }
     }
