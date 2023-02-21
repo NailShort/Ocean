@@ -229,7 +229,7 @@ const deleteLatest = async (id) => {
 
 #Admin{
   background: rgb(15,85,165);
-  height: 887px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -237,9 +237,9 @@ const deleteLatest = async (id) => {
   .content{
     background: #eee;
     border-radius: 30px;
-    height: 860px;
+    height: 97%;
     width: 98%;
-    overflow: auto;
+    overflow: hidden;
     position: relative;
     padding: 30px;
     .title{

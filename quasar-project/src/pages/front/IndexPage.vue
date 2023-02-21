@@ -91,7 +91,6 @@
 
     <!-- 視差、贊助 ----------------------------------------------------------->
     <div class="parallax row justify-between">
-      <div class="sea"></div>
       <q-parallax src="../../../images/par-bg.jpg" style="height: 600px;">
         <div class="text col-12">
         <h3>最新消息</h3>

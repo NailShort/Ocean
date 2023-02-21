@@ -4,6 +4,7 @@ import products from '../models/products.js'
 export const createProduct = async (req, res) => {
   try {
     const result = await products.create({
+      userid: req.user._id,
       name: req.body.name,
       time: req.body.time,
       description: req.body.description,
@@ -104,5 +105,18 @@ export const deletProduct = async (req, res) => {
     } else {
       res.status(500).json({ success: false, message: '未知錯誤' })
     }
+  }
+}
+
+// 取會員的商品，會員專用
+export const getMemberProducts = async (req, res) => {
+  try {
+    const result = await products
+      .find({
+        userid: req.user._id
+      })
+    res.status(200).json({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).json({ success: false, message: '未知錯誤' })
   }
 }

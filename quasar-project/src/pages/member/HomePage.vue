@@ -1,10 +1,51 @@
 <template>
   <div id="Admin">
-    <div class="content">123</div>
+    <div class="content column items-center justify-center">
+        <img :src="`https://source.boringavatars.com/beam/256/${account}?colors=000000,F0A818,304878,181848,F0A818`">
+        <p>帳號 </p>
+        <p>密碼 </p>
+    </div>
   </div>
 </template>
 
 <script setup>
+
+defineProps({
+  /* eslint-disable */
+  _id: {
+    type: String,
+    default: ''
+  },
+  account: {
+    type: String,
+    default: ''
+  },
+  /* eslint-enable */
+  name: {
+    type: String,
+    default: ''
+  },
+  time: {
+    type: String,
+    default: ''
+  },
+  description: {
+    type: String,
+    default: ''
+  },
+  image: {
+    type: String,
+    default: ''
+  },
+  sell: {
+    type: Boolean,
+    default: false
+  },
+  category: {
+    type: String,
+    default: ''
+  }
+})
 
 </script>
 

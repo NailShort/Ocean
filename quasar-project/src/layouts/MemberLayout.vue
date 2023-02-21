@@ -7,7 +7,7 @@
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title>
-          管理者頁面
+          會員專區
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -17,8 +17,10 @@
           <ul>
             <li class="head">
               <div class="content">
-              <img :src="avatar">
-              <p> {{ account }} </p>
+                <router-link to="/member">
+                  <img :src="avatar">
+                </router-link>
+              <p> {{ account }}</p>
             </div>
             </li>
 

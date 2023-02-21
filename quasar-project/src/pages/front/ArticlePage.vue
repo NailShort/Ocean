@@ -1,10 +1,17 @@
 <template>
   <!-- 文章討論頁 -->
   <div id="article">
+    <!-- 路徑 -->
+    <div class="route col-12 row items-center justify-start">
+      <q-btn to="/" flat style="color: black" label="首頁" />
+      <span>></span>
+      <q-btn flat :disable="!progress" style="color: gray" label="文章討論" />
+    </div>
+    <!-- 按鈕 -->
     <div class=" btn row justify-center items-center">
       <q-btn v-for="fish,index in articleCategory" flat color="primary" :key="index" :label="fish" @click="fishActive=fish" />
     </div>
-
+    <!-- 內容 -->
     <div class="art row warp justify-center items-center" v-for="product in ac" :key="product._id">
       <ArticleCard v-bind="product"></ArticleCard>
     </div>
@@ -85,6 +92,9 @@ defineProps({
 <style lang="scss" scoped>
   #article{
     padding: 150px 10px;
+    .route{
+      margin-bottom: 30px;
+    }
     .btn{
       margin-bottom: 50px;
       .q-btn{

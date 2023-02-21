@@ -13,17 +13,25 @@
     </div>
     <div class="contant row warp">
       <!-- 圖片 -->
-      <div class="img col-12 col-md-5">
+      <div class="img col-12 col-md-6">
         <img :src="fish.image">
       </div>
       <!-- 說明 -->
-      <div class="text col-12 col-md-7">
+      <div class="text col-12 col-md-6">
         <p>中文名稱：{{ fish.name }}</p>
         <p>魚隻分類：{{ fish.category }}</p>
         <p>英文名稱：{{ fish.egname }}</p>
         <p>學術名稱：{{ fish.stname }}</p>
         <p>成體尺寸：{{ fish.size }} cm</p>
+        <p>食物要求：{{ fish.food }}</p>
         <p>危險程度：{{ fish.danger }}</p>
+        <p>主要產地：{{ fish.place }}</p>
+      </div>
+      <!-- 線 -->
+      <div class="line"></div>
+      <!-- 內文 -->
+      <div class="des col-12">
+        <p>{{ fish.description }}</p>
       </div>
 
       <!-- <div class="col-10">
@@ -116,6 +124,7 @@ const fish = reactive({
   background: #eee;
   min-height: 80vh;
   padding-top: 150px;
+  padding-bottom: 150px;
   .route{
     width: 80%;
     margin: auto;
@@ -137,6 +146,18 @@ const fish = reactive({
     }
     .text{
       padding: 30px;
+    }
+    .line{
+      height: 1px;
+      width: 95%;
+      background: rgba(0,0,0,0.2);
+      margin: auto;
+      margin-top: 30px;
+    }
+    .des{
+      padding: 30px;
+      text-indent: 2rem;
+      white-space: pre-wrap;
     }
   }
 }

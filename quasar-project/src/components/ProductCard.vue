@@ -15,7 +15,7 @@
           <!-- 頭 -->
           <q-item-section class="head col-2" avatar>
             <q-avatar>
-              <img src="https://cdn.quasar.dev/img/avatar2.jpg">
+              <img :src="`https://source.boringavatars.com/beam/256/${account}?colors=000000,F0A818,304878,181848,F0A818`">
             </q-avatar>
           </q-item-section>
 
@@ -42,6 +42,10 @@ import { useUserStore } from 'src/stores/user'
 defineProps({
   /* eslint-disable */
   _id: {
+    type: String,
+    default: ''
+  },
+  account: {
     type: String,
     default: ''
   },

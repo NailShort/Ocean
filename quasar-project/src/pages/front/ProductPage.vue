@@ -1,5 +1,5 @@
 <template>
-  <!-- 產品內頁 -->
+  <!-- 文章內頁 -->
   <div id="product">
     <!-- 路徑 -->
     <div class="route col-12 row items-center justify-start">
@@ -23,7 +23,7 @@
         <p class="user row items-center justify-center">
           <img class="user-img" src="../../../images/fishbook/小丑.png">
           <span class="user-name">user name</span>
-          ${{ product.time }}
+          {{ product.time }}
           <q-btn class="like" icon="favorite_border" label="Like" @click="editLike({_id, quantity: 1})"/>
         </p>
       </div>
@@ -43,6 +43,10 @@
         <p class="time">2023-02-20</p>
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis atque, aliquam dolorum earum modi nostrum tenetur odio minima qui ipsa quas asperiores officiis, obcaecati rerum et dolore? Pariatur, impedit eius asperiores voluptatibus atque molestiae quia molestias accusantium quisquam maxime officia beatae commodi sapiente repellat cupiditate nam, at magni. Commodi sapiente fugit voluptas, nisi rerum dignissimos! Distinctio non sapiente consequuntur ab assumenda reiciendis, soluta hic labore dolorem, tempore magnam iste eum temporibus harum ea. Veniam nulla quisquam deleniti aliquam suscipit at.</p>
       </div>
+    </div>
+    <!-- 回頂部 -->
+    <div class="top col-12 row items-center justify-end">
+      <q-btn ref="myButton" @click="scrollToTop" flat style="color: rgb(15,85,165);" icon="navigation"  />
     </div>
     <!-- <div class="overlay" :model-value="product.sell">
       <h1>以下架</h1>
@@ -101,7 +105,6 @@ const product = reactive({
     product.category = data.result.category
 
     document.title = '購物網 | 商品 | ' + product.name
-    // document.querySelector('meta[property="og:title"]').setAttribute('content', product.name)
   } catch (error) {
     Swal.fire({
       icon: 'error',
@@ -112,6 +115,17 @@ const product = reactive({
   }
 })()
 
+</script>
+
+<script>
+export default {
+  methods: {
+    scrollToTop () {
+      const el = document.body // 获取按钮元素
+      el.scrollIntoView({ behavior: 'smooth' }) // 滚动到顶部
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -150,7 +164,7 @@ const product = reactive({
       height: 250px;
       position: relative;
       margin: 0 0 20px 0;
-      background: #eee;
+      background: black;
       img{
         max-width: 100%;
         max-height: 100%;
@@ -202,6 +216,11 @@ const product = reactive({
         border-bottom: 1px solid rgba(0,0,0,0.1);
       }
     }
+  }
+  .top{
+    max-width: 800px;
+    margin: auto;
+    margin-top: 30px;
   }
 }
 @media (min-width:600px) {

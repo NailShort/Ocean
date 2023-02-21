@@ -47,7 +47,7 @@ const routes = [
       },
       {
         path: 'latest/:id',
-        name: 'latest',
+        name: 'infolatest',
         component: () => import('src/pages/front/InLatestPage.vue'),
         meta: {
           title: 'Ocean | 最新消息',
@@ -101,6 +101,26 @@ const routes = [
         component: () => import('pages/front/fishBook/TangFish.vue'),
         meta: {
           title: 'Ocean | 魚種圖鑑 | 倒吊魚',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/latest',
+        name: 'latest',
+        component: () => import('src/pages/front/LatestPage.vue'),
+        meta: {
+          title: 'Ocean | 最新消息',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/contact',
+        name: 'contact',
+        component: () => import('src/pages/front/ContactPage.vue'),
+        meta: {
+          title: 'Ocean | 聯絡我們',
           login: false,
           admin: false
         }

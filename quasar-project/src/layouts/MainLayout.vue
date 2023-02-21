@@ -16,11 +16,10 @@
             <q-btn-group push>
             <q-btn v-if="!isLogin" push label="會員登入" icon="login" to="/login" />
             <q-btn v-if="!isLogin" push label="註冊會員" icon="how_to_reg" to="/register" />
-            <q-btn v-if="isLogin" push label="會員專區" icon="account_circle" to="/member">
+            <q-btn v-if="isLogin && !isAdmin" push label="會員專區" icon="account_circle" to="/member">
               <q-badge color="secondary" floating >{{ like }}0</q-badge>
             </q-btn>
 
-            <q-btn :content="cart" push label="訂單" icon="mail"  />
             <q-btn v-if="isLogin && isAdmin" push label="管理" icon="settings" to="/admin" />
             <q-btn v-if="isLogin" push label="登出" icon="logout"  @click="logout" />
             </q-btn-group>
@@ -40,8 +39,7 @@
           <q-fab-action v-if="!isLogin" icon="how_to_reg" label="註冊帳號" to="/register"  />
           <q-fab-action v-if="!isLogin" icon="login" label="會員登入" to="/login" />
           <q-fab-action v-if="isLogin" icon="logout" @click="logout" />
-          <q-fab-action icon="mail" label="" />
-          <q-btn v-if="isLogin" round icon="account_circle" label="" to="/member" >
+          <q-btn v-if="isLogin && !isAdmin" round icon="account_circle" label="" to="/member" >
             <q-badge color="secondary" floating>{{ like }}0</q-badge>
           </q-btn>
           <q-fab-action v-if="isLogin && isAdmin"   icon="settings" label="" to="/admin" />
@@ -57,8 +55,8 @@
         <q-route-tab to="/" label="首頁" />
         <q-route-tab to="/article" label="文章討論" />
         <q-route-tab to="/fish" label="魚種圖鑑" />
-        <q-route-tab to="/" label="最新消息" />
-        <q-route-tab to="/" label="聯絡我們" />
+        <q-route-tab to="/latest" label="最新消息" />
+        <q-route-tab to="/contact" label="聯絡我們" />
       </q-tabs>
     </q-header>
 
@@ -67,58 +65,36 @@
       <q-list bordered class="rounded-borders">
 
         <div class="btn">
-          <a href="#">
-            <div class="icon"></div>
-            <div class="text">首頁</div>
-          </a>
+          <q-btn to="/" icon="home" align="left" flat style="color: black" label="回到首頁" />
         </div>
 
-        <q-expansion-item default-opened :content-inset-level="0.5" expand-separator icon="schedule" label="文章討論">
-          <q-card>
-            <q-card-section>
-              <a href="#">海水魚類</a>
-            </q-card-section>
-            <q-card-section>
-              <a href="#">珊瑚軟體</a>
-            </q-card-section>
-            <q-card-section>
-              <a href="#">硬體設備</a>
-            </q-card-section>
-            <q-card-section>
-              <a href="#">二手分享</a>
-            </q-card-section>
-          </q-card>
-        </q-expansion-item>
+        <div class="btn">
+          <q-btn to="/article" icon="menu_book" align="left" flat style="color: black" label="文章討論" />
+        </div>
 
-        <q-expansion-item default-opened :content-inset-level="0.5" expand-separator icon="schedule" label="魚種圖鑑">
+        <q-expansion-item default-opened :content-inset-level="0.5" expand-separator icon="water_drop" label="魚種圖鑑">
           <q-card>
             <q-card-section>
-              <a href="#">小丑類</a>
+              <q-btn to="/clownfish" align="left" flat style="color: rgb(15,85,165);" label="小丑魚" />
             </q-card-section>
             <q-card-section>
-              <a href="#">神仙類</a>
+              <q-btn to="" align="left" flat style="color: rgb(15,85,165);" label="雀鯛" />
             </q-card-section>
             <q-card-section>
-              <a href="#">倒吊類</a>
+              <q-btn to="/tangfish" align="left" flat style="color: rgb(15,85,165);" label="倒吊" />
             </q-card-section>
             <q-card-section>
-              <a href="#">砲彈類</a>
+              <q-btn  align="left" flat style="color: rgb(15,85,165);" label="Fuchsia Flat" />
             </q-card-section>
           </q-card>
         </q-expansion-item>
 
         <div class="btn">
-          <a href="#">
-            <div class="icon"></div>
-            <div class="text">最新消息</div>
-          </a>
+          <q-btn to="/latest" icon="feed" align="left" flat style="color: black" label="最新消息" />
         </div>
 
         <div class="btn">
-          <a href="#">
-            <div class="icon"></div>
-            <div class="text">聯絡我們</div>
-          </a>
+          <q-btn to="/contact" icon="mail" align="left" flat style="color: black" label="聯絡我們" />
         </div>
 
     </q-list>
@@ -194,7 +170,7 @@ const fab1 = ref(false)
     text-decoration: none;
   }
   .login{
-    width: 421px;
+    width: 300px;
     display: none;
     position: absolute;
     right: 210px;
@@ -243,55 +219,24 @@ const fab1 = ref(false)
   display: flex;
   flex-direction: column;
   height: 48px;
-  a{
+  .q-btn{
     height: 48px;
-    display: block;
-    text-decoration: none;
-    background: white;
-    transition: 0.5s;
-
-    &:hover{
-      background: rgb(230, 230, 230);
-    }
-    .icon{
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: red;
-      position: absolute;
-      top: 50%;
-      left: 4%;
-      transform: translateY(-50%);
-    }
-    .text{
-      position: absolute;
-      top: 50%;
-      left: 24%;
-      transform: translateY(-50%);
-      color: black;
-    }
   }
 }
 .q-card{
   .q-card__section{
     padding: 0;
   }
-  a{
+  .q-btn{
     height: 48px;
-    display: block;
-    transition: 0.5s;
-    text-decoration: none;
-    color: black;
-    line-height: 48px;
-    &:hover{
-      background: linear-gradient(270deg,rgb(230,230,230),rgb(255,255,255));
-    }
+    width: 268px;
   }
 }
 
 // footer --------------------------------------------------------
 .q-footer{
   background:linear-gradient(rgba(15,85,165,0.6), rgba(15,85,165,1)), url(../../images/footer.jpg) no-repeat center/cover;
+  background: rgba(15,85,165,1);
   position: relative;
   .left{
     padding: 0 20px 0 20px;

@@ -17,7 +17,9 @@
           <ul>
             <li class="head">
               <div class="content">
-              <img :src="avatar">
+                <router-link to="/admin">
+                  <img :src="avatar">
+                </router-link>
               <p> {{ account }} </p>
             </div>
             </li>
