@@ -1,18 +1,24 @@
 <template>
   <div id="Admin">
     <div class="content justify-center" align="center">
-      <h4 class="title">文章討論管理</h4>
 
-      <!-- 新增商品 ------------------------------------------------>
-      <div class="q-pa-md q-gutter-sm col-12" align="center">
-        <q-btn label="新增商品" color="primary" @click="openDialog(-1)" />
+      <div class="top col-12 row">
+        <div class="col-6 ">
+        <h4 class="title">我的文章</h4>
       </div>
+      <!-- 新增商品 ------------------------------------------------>
+      <div class="new .col-6  q-pa-md q-gutter-sm">
+        <q-btn label="新增商品" color="secondary" @click="openDialog(-1)" />
+      </div>
+      </div>
+
+      <!-- 分類按鈕組 -->
       <div class="q-pa-md q-gutter-sm col-12" align="center">
-        <q-btn v-for="fish,index in articleCategory" outline rounded color="primary" :key="index" :label="fish" @click="fishActive=fish" />
+        <q-btn v-for="fish,index in articleCategory" outline rounded color="secondary" :key="index" :label="fish" @click="fishActive=fish" />
       </div>
 
       <!-- 表格 ---------------------------------------------------->
-        <table :fishActive="fishActive" style="width: 70%; " border="1">
+        <table :fishActive="fishActive">
           <thead>
             <tr align="left">
               <th>圖片</th>
@@ -23,23 +29,56 @@
           </thead>
           <tbody>
             <tr v-for="(product, idx) in ac" :key="product._id">
-              <td>
+              <td class="img">
                 <img :src="product.image"  :width="100">
               </td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.time }}</td>
-              <td >
-                <q-btn round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
-                <q-btn round color="red" icon="delete" @click="deleteProduct(product._id)"></q-btn>
+              <td class="name">{{ product.name }}</td>
+              <td class="time">{{ product.time }}</td>
+              <td class="btn">
+                <q-btn size="sm" round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
+                <q-btn size="sm" round color="red" icon="delete" @click="deleteProduct(product._id)"></q-btn>
               </td>
             </tr>
           </tbody>
         </table>
 
+        <!-- q-table ------------------------------------------------->
+        <!-- <div class="table" style="max-width: 80%;">
+        <q-table
+          title="我的文章"
+          :rows="products"
+          :columns="columns"
+          row-key="_id"
+          v-model:pagination="pagination"
+          hide-pagination
+        >
+
+        <template v-slot:body-cell-image="products">
+          <q-td>
+            <q-img :src="products.row.image" ></q-img>
+          </q-td>
+        </template>
+
+        <template v-slot:body-cell-button="product">
+          <q-td>
+            <q-btn size="sm" round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
+            <q-btn size="sm" round color="red" icon="delete" @click="deleteProduct(product._id)"></q-btn>
+          </q-td>
+        </template>
+        </q-table>
+
+        <q-pagination
+          v-model="pagination.page"
+          color="grey-8"
+          :max="pagesNumber"
+          size="sm"
+        />
+      </div> -->
+
         <!-- 彈跳視窗 ------------------------------------------------>
         <q-dialog v-model="form.dialog" persistent>
 
-          <q-card style="min-width: 700px">
+          <q-card style="width: 100%;">
             <q-form  @submit="submit">
 
             <q-card-section>
@@ -112,6 +151,47 @@ const rules = {
     return !!value || '欄位必填'
   }
 }
+
+// q-table -------------------------------------
+
+// const columns = reactive([
+//   {
+//     name: 'image',
+//     label: '圖片',
+//     align: 'left',
+//     field: 'image'
+//   },
+//   {
+//     name: 'article',
+//     label: '文章',
+//     align: 'left',
+//     field: 'name'
+//   },
+//   {
+//     name: 'date',
+//     label: '日期',
+//     align: 'left',
+//     field: 'time'
+//   },
+//   {
+//     name: 'button',
+//     label: '編輯',
+//     align: 'left'
+//   }
+// ])
+
+// const pagination = ref({
+//   sortBy: 'desc',
+//   descending: false,
+//   page: 5,
+//   rowsPerPage: 5
+// })
+
+// const pagesNumber = computed(() => {
+//   return Math.ceil(products.length / pagination.value.rowsPerPage)
+// })
+
+// -----------------------------------------------
 
 const products = reactive([])
 const form = reactive({
@@ -248,9 +328,9 @@ const ac = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-#Like{
+#Admin{
   background: rgb(225,85,25);
-  height: 887px;
+  height: 94vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,9 +338,66 @@ const ac = computed(() => {
   .content{
     background: #eee;
     border-radius: 30px;
-    height: 860px;
+    height: 97%;
     width: 98%;
     overflow: auto;
+    .top{
+      max-width: 800px;
+      height: 50px;
+      line-height: 50px;
+      margin-top: 50px;
+      h4{
+        margin: 0;
+        text-align: left;
+        padding-left: 10px;
+        margin-left: 20px;
+        border-left: 5px solid rgb(225,85,25);
+      }
+      .new{
+        padding: 0;
+        text-align: right;
+      }
+    }
+
+    table{
+      border-collapse:collapse;
+      max-width: 800px;
+      th{
+        background: rgb(225,85,25);
+        height: 30px;
+        color: white;
+        padding: 0 10px;
+        border-left: 1px solid white;
+      }
+      th:nth-child(4){
+        text-align: center;
+      }
+      tr:nth-child(even){
+        background-color:white;
+      }
+      .name{
+        width: 35%;
+        padding: 10px;
+      }
+      .time{
+        width: 20%;
+      }
+      .btn{
+        width: 15%;
+        text-align: center;
+        .q-btn{
+          margin: 5px;
+        }
+      }
+      .img{
+        width: 30%;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+    }
   }
 }
 

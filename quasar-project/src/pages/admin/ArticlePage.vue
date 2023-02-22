@@ -1,18 +1,23 @@
 <template>
   <div id="Admin">
     <div class="content justify-center" align="center">
-      <h4 class="title">文章討論管理</h4>
 
-      <!-- 新增商品 ------------------------------------------------>
-      <div class="q-pa-md q-gutter-sm col-12" align="center">
-        <q-btn label="新增商品" color="primary" @click="openDialog(-1)" />
+      <div class="top col-12 row">
+        <div class="col-8 ">
+          <h4 class="title">文章討論管理</h4>
+        </div>
+        <div class="new col-4 q-pa-md q-gutter-sm">
+          <q-btn label="新增商品" color="primary" @click="openDialog(-1)" />
+        </div>
       </div>
+
+      <!-- 分類組 ------------------------------------------------>
       <div class="q-pa-md q-gutter-sm col-12" align="center">
         <q-btn v-for="fish,index in articleCategory" outline rounded color="primary" :key="index" :label="fish" @click="fishActive=fish" />
       </div>
 
       <!-- 表格 ---------------------------------------------------->
-        <table :fishActive="fishActive" style="width: 70%; " border="1">
+        <table :fishActive="fishActive">
           <thead>
             <tr align="left">
               <th>圖片</th>
@@ -23,12 +28,12 @@
           </thead>
           <tbody>
             <tr v-for="(product, idx) in ac" :key="product._id">
-              <td>
+              <td class="img">
                 <img :src="product.image"  :width="100">
               </td>
-              <td>{{ product.name }}</td>
-              <td>{{ product.time }}</td>
-              <td >
+              <td class="name">{{ product.name }}</td>
+              <td class="time">{{ product.time }}</td>
+              <td class="btn">
                 <q-btn round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
                 <q-btn round color="red" icon="delete" @click="deleteProduct(product._id)"></q-btn>
               </td>
@@ -39,7 +44,7 @@
         <!-- 彈跳視窗 ------------------------------------------------>
         <q-dialog v-model="form.dialog" persistent>
 
-          <q-card style="min-width: 700px">
+          <q-card style="width: 100%;">
             <q-form  @submit="submit">
 
             <q-card-section>
@@ -255,7 +260,7 @@ const ac = computed(() => {
 
 #Admin{
   background: rgb(15,85,165);
-  height: 100vh;
+  height: 94vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -265,11 +270,64 @@ const ac = computed(() => {
     border-radius: 30px;
     height: 97%;
     width: 98%;
-    overflow: hidden;
+    overflow: auto;
     position: relative;
-    padding: 30px;
-    .title{
-      margin: 10px 0 10px 0;
+    .top{
+      max-width: 800px;
+      height: 50px;
+      line-height: 50px;
+      margin-top: 50px;
+      h4{
+        margin: 0;
+        text-align: left;
+        padding-left: 10px;
+        margin-left: 20px;
+        border-left: 5px solid rgb(15,85,165);
+      }
+      .new{
+        padding: 0;
+        text-align: right;
+      }
+    }
+
+    table{
+      border-collapse:collapse;
+      max-width: 800px;
+      th{
+        background: rgb(15,85,165);
+        height: 30px;
+        color: white;
+        padding: 0 10px;
+        border-left: 1px solid white;
+      }
+      th:nth-child(4){
+        text-align: center;
+      }
+      tr:nth-child(even){
+        background-color:white;
+      }
+      .name{
+        width: 35%;
+        padding: 10px;
+      }
+      .time{
+        width: 20%;
+      }
+      .btn{
+        width: 15%;
+        text-align: center;
+        .q-btn{
+          margin: 5px;
+        }
+      }
+      .img{
+        width: 30%;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+
     }
   }
 }

@@ -109,6 +109,9 @@ function toggleLeftDrawer () {
   text-align: center;
   padding: 0;
 }
+.q-layout{
+  background:  rgb(15,85,165)
+}
 .menu{
   height: 100%;
   width: 100%;

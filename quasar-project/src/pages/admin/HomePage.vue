@@ -4,35 +4,40 @@
         <img :src="`https://source.boringavatars.com/beam/256/${account}?colors=000000,F0A818,304878,181848,F0A818`">
         <p>帳號 </p>
         <p>密碼 </p>
+      <!-- 編輯按鈕 -->
+      <q-btn icon="edit" flat  color="primary" @click="prompt = true" />
+      <!-- 彈跳視窗 -->
+      <q-dialog v-model="prompt" persistent>
+        <q-card style="min-width: 350px">
+          <q-card-section>
+            <div class="text-h6">編輯資料</div>
+          </q-card-section>
+
+          <q-card-section class="q-pt-none">
+            <q-input dense v-model="address" autofocus @keyup.enter="prompt = false" />
+          </q-card-section>
+
+          <q-card-actions align="right" class="text-primary">
+            <q-btn flat label="送出" v-close-popup />
+            <q-btn flat label="取消" v-close-popup />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </div>
   </div>
 </template>
 
 <script setup>
-import { apiAuth } from '../../../plugins/axios'
-import { reactive } from 'vue'
-import Swal from 'sweetalert2'
+import { ref } from 'vue'
 
-const users = reactive([]);
+const prompt = ref(false)
 
-(async () => {
-  try {
-    const { data } = await apiAuth.get('/users/me')
-    users.push(...data.result)
-  } catch (error) {
-    Swal.fire({
-      icon: 'error',
-      title: '失敗',
-      text: error?.response?.data?.message || '發生錯誤'
-    })
-  }
-})()
 </script>
 
 <style lang="scss" scoped>
 #Admin{
   background: rgb(15,85,165);
-  height: 100vh;
+  height: 94vh;
   display: flex;
   justify-content: center;
   align-items: star;

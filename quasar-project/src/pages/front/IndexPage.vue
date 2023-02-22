@@ -104,7 +104,7 @@
       </div>
       <div class="sponsor row warp justify-between">
 
-        <div class="box col-12 col-sm-6 col-lg-3">
+        <div class="box box01 col-12 col-sm-6 col-lg-3">
           <a href="https://www.ph84.idv.tw/forum/" target="_blank">
             <div class="img">
               <img src="../../../images/PH8.4.png" style="width: 100%; height: 100%;">
@@ -112,7 +112,7 @@
           </a>
         </div>
 
-        <div class="box col-12 col-sm-6 col-lg-3">
+        <div class="box box02 col-12 col-sm-6 col-lg-3">
           <a href="https://redseafish.com/" target="_blank">
             <div class="img">
               <img src="../../../images/RedSea.png" style="width: 100%; height: 100%;">
@@ -120,7 +120,7 @@
           </a>
         </div>
 
-        <div class="box col-12 col-sm-6 col-lg-3">
+        <div class="box box03 col-12 col-sm-6 col-lg-3">
           <a href="https://www.cmfish.com/index.php" target="_blank">
             <div class="img">
               <img src="../../../images/海友網.png" style="width: 100%; height: 100%;">
@@ -128,7 +128,7 @@
           </a>
         </div>
 
-        <div class="box col-12 col-sm-6 col-lg-3">
+        <div class="box box04 col-12 col-sm-6 col-lg-3">
           <a href="https://www.hikari-tw.com/" target="_blank">
             <div class="img">
               <img src="../../../images/高夠力.png" style="width: 100%; height: 100%;">
@@ -143,11 +143,20 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 // import ProductCard from '../../components/ProductCard.vue'
 import SwiperCard from '../../components/SwiperCard.vue'
 import FishSwiper from '../../components/FishSwiper.vue'
 import LatestsSwiper from '../../components/LatestsSwiper.vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+// gsap ------------------------------------------------------
+onMounted(() => {
+
+})
+// -----------------------------------------------------------
 
 const slide = ref(1)
 // const slide02 = ref(1)
@@ -197,13 +206,29 @@ const fishActive = ref(articleCategory[0])
     height: 200px;
     background: linear-gradient(rgba(30,180,210,0),rgba(15,85,165,0.9),rgba(255,255,255,1));
   }
+
+  @keyframes moveWave {
+      0% {
+        background-position:0%;
+      }
+
+      100% {
+        background-position:1000%
+      }
+  }
   .wave{
     width: 100%;
     height: 100px;
     background: url(https://sunshinecity.jp/themes/aquarium@sunshine/resource/common/images/bg/bg_contents_cmn_pc_01.png) center repeat-x;
     position: absolute;
     bottom: -10px;
+    animation: moveWave 50s infinite linear;
+    animation-delay: 0s;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
   }
+
   .text{
     position: absolute;
     top: 30%;
@@ -311,12 +336,27 @@ const fishActive = ref(articleCategory[0])
     width: 100%;
     background: linear-gradient(rgb(124, 245, 252),rgba(255,255,255,0));
   }
+
+  @keyframes moveWave {
+      0% {
+        background-position:0%;
+      }
+
+      100% {
+        background-position:1000%
+      }
+  }
   .wave{
     position: absolute;
     top: -50px;
     width: 100%;
     height: 50px;
     background: url(../../../images/wave.png) center repeat-x;
+    animation: moveWave 50s infinite linear;
+    animation-delay: 0s;
+    animation-direction: normal;
+    animation-fill-mode: none;
+    animation-play-state: running;
   }
   .contant{
     width: 80%;

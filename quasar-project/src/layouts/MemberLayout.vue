@@ -91,6 +91,9 @@ function toggleLeftDrawer () {
 </script>
 
 <style lang="scss" scoped>
+.q-layout{
+  background:  rgb(225,85,25);
+}
 .q-toolbar__title {
   text-align: center;
   padding: 0;
