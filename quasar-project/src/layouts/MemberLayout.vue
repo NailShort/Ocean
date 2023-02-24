@@ -18,7 +18,7 @@
             <li class="head">
               <div class="content">
                 <router-link to="/member">
-                  <img :src="avatar">
+                  <img :src="image">
                 </router-link>
               <p> {{ account }}</p>
             </div>
@@ -80,7 +80,7 @@ import { storeToRefs } from 'pinia'
 import { useUserStore } from '../stores/user'
 
 const user = useUserStore()
-const { avatar, account } = storeToRefs(user)
+const { account, image } = storeToRefs(user)
 
 const leftDrawerOpen = ref(false)
 

@@ -21,7 +21,7 @@
           <thead>
             <tr align="left">
               <th>圖片</th>
-              <th>名稱</th>
+              <th>標題</th>
               <th>日期</th>
               <th>管理</th>
             </tr>

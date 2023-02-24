@@ -77,7 +77,7 @@ const updateLike = async (idx, quantity) => {
     Swal.fire({
       icon: 'error',
       title: '失敗',
-      text: '取得購物車失敗'
+      text: '取得最愛失敗'
     })
   }
 })()

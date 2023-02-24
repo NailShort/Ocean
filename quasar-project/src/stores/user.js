@@ -12,7 +12,7 @@ export const useUserStore = defineStore('user', () => {
   const cart = ref(0)
   const like = ref(0)
   const role = ref(0)
-
+  const image = ref('')
   const isLogin = computed(() => {
     return token.value.length > 0
   })
@@ -32,6 +32,7 @@ export const useUserStore = defineStore('user', () => {
       cart.value = data.result.cart
       like.value = data.result.like
       role.value = data.result.role
+      image.value = data.result.image
       Swal.fire({
         icon: 'success',
         title: '成功',
@@ -79,6 +80,7 @@ export const useUserStore = defineStore('user', () => {
       cart.value = data.result.cart
       like.value = data.result.like
       role.value = data.result.role
+      image.value = data.result.image
     } catch (error) {
       logout()
     }
@@ -100,7 +102,26 @@ export const useUserStore = defineStore('user', () => {
       Swal.fire({
         icon: 'success',
         title: '成功',
-        text: '加入最愛'
+        text: '已完成'
+      })
+    } catch (error) {
+      Swal.fire({
+        icon: 'error',
+        title: '失敗',
+        text: error?.response?.data?.message || '發生錯誤'
+      })
+    }
+  }
+
+  const editImage = async (fd) => {
+    try {
+      const { data } = await apiAuth.patch('/users/eduser', fd)
+      image.value = data.result.image
+      console.log(data)
+      Swal.fire({
+        icon: 'success',
+        title: '成功',
+        text: '編輯成功'
       })
     } catch (error) {
       Swal.fire({
@@ -123,7 +144,9 @@ export const useUserStore = defineStore('user', () => {
     isLogin,
     isAdmin,
     avatar,
-    editLike
+    editLike,
+    editImage,
+    image
   }
 }, {
   persist: {
@@ -131,3 +154,34 @@ export const useUserStore = defineStore('user', () => {
     paths: ['token']
   }
 })
+
+// const form = reactive({
+//   _id: '',
+//   name: '',
+//   password: '',
+//   image: undefined,
+//   email: '',
+
+//   loading: false,
+//   dialog: false
+// })
+
+// (async () => {
+//   try {
+//     const { data } = await apiAuth.get('/users/me')
+//     // users.push(...data.result)
+//     form._id = data.result._id
+//     form.name = data.result.name || '尚未修改名稱'
+//     form.image = data.result.image || '../../../images/尚無照片-01.jpg'
+//     form.email = data.result.email
+
+//     form.loading = false
+//     form.dialog = false
+//   } catch (error) {
+//     Swal.fire({
+//       icon: 'error',
+//       title: '失敗',
+//       text: error?.response?.data?.message || '發生錯誤'
+//     })
+//   }
+// })()

@@ -1,30 +1,33 @@
 <template>
   <div id="Admin">
-    <div class="content column items-center justify-start">
-      <h4 class="title">最新消息管理</h4>
+    <div class="content justify-center" align="center">
 
-      <!-- 新增商品 -->
-      <div class="q-pa-md q-gutter-sm">
-        <q-btn label="新增消息" color="primary" @click="openDialog(-1)" />
+      <div class="top col-12 row">
+        <div class="col-8">
+          <h4 class="title">最新消息管理</h4>
+        </div>
+        <div class="new col-4 q-pa-md q-gutter-sm">
+          <q-btn label="新增消息" color="primary" @click="openDialog(-1)" />
+        </div>
       </div>
 
-        <table style="width: 70%; " border="1">
+        <table>
           <thead>
             <tr align="left">
               <th>圖片</th>
-              <th>名稱</th>
+              <th>標題</th>
               <th>日期</th>
               <th>管理</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(latest, idx) in latests" :key="latest._id">
-              <td>
+              <td class="img">
                 <img :src="latest.image"  :width="100">
               </td>
-              <td>{{ latest.name }}</td>
-              <td>{{ latest.time }}</td>
-              <td >
+              <td class="name">{{ latest.name }}</td>
+              <td class="time">{{ latest.time }}</td>
+              <td class="btn">
                 <q-btn round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
                 <q-btn round color="red" icon="delete" @click="deleteLatest(latest._id)"></q-btn>
               </td>
@@ -35,7 +38,7 @@
         <!-- 彈跳視窗 -->
         <q-dialog v-model="form.dialog" persistent>
 
-          <q-card style="min-width: 700px">
+          <q-card style="width: 100%;">
             <q-form  @submit="submit">
 
             <q-card-section>
@@ -229,7 +232,7 @@ const deleteLatest = async (id) => {
 
 #Admin{
   background: rgb(15,85,165);
-  height: 100vh;
+  height: 94vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -239,11 +242,64 @@ const deleteLatest = async (id) => {
     border-radius: 30px;
     height: 97%;
     width: 98%;
-    overflow: hidden;
+    overflow: auto;
     position: relative;
-    padding: 30px;
-    .title{
-      margin: 10px 0 10px 0;
+    .top{
+      max-width: 800px;
+      height: 50px;
+      line-height: 50px;
+      margin-top: 50px;
+      h4{
+        margin: 0;
+        text-align: left;
+        padding-left: 10px;
+        margin-left: 20px;
+        border-left: 5px solid rgb(15,85,165);
+      }
+      .new{
+        padding: 0;
+        text-align: right;
+      }
+    }
+
+    table{
+      border-collapse:collapse;
+      max-width: 800px;
+      th{
+        background: rgb(15,85,165);
+        height: 30px;
+        color: white;
+        padding: 0 10px;
+        border-left: 1px solid white;
+      }
+      th:nth-child(4){
+        text-align: center;
+      }
+      tr:nth-child(even){
+        background-color:white;
+      }
+      .name{
+        width: 35%;
+        padding: 10px;
+      }
+      .time{
+        width: 20%;
+      }
+      .btn{
+        width: 15%;
+        text-align: center;
+        .q-btn{
+          margin: 5px;
+        }
+      }
+      .img{
+        width: 30%;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+
     }
   }
 }

@@ -35,6 +35,13 @@ const schema = new Schema({
     unique: true,
     match: [/^[A-Za-z0-9]+$/, '帳號格式錯誤']
   },
+  name: {
+    type: String
+  },
+  image: {
+    type: String,
+    default: 'https://source.boringavatars.com/beam/256/aaaa?colors=000000,F0A818,304878,181848,F0A818'
+  },
   password: {
     type: String,
     required: true

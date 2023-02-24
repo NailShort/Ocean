@@ -7,7 +7,8 @@ export const register = async (req, res) => {
     await users.create({
       account: req.body.account,
       password: req.body.password,
-      email: req.body.email
+      email: req.body.email,
+      name: req.body.name
     })
     res.status(200).json({ success: true, message: '' })
   } catch (error) {
@@ -35,7 +36,8 @@ export const login = async (req, res) => {
         account: req.user.account,
         email: req.user.email,
         cart: req.user.cart.reduce((total, current) => total + current.quantity, 0),
-        role: req.user.role
+        role: req.user.role,
+        image: req.user.image
       }
     })
   } catch (error) {
@@ -74,12 +76,41 @@ export const getUser = (req, res) => {
       result: {
         account: req.user.account,
         email: req.user.email,
+        name: req.user.name,
+        image: req.user.image,
         cart: req.user.cart.reduce((total, current) => total + current.quantity, 0),
         role: req.user.role
       }
     })
   } catch (error) {
     res.status(500).json({ success: false, message: '未知錯誤' })
+  }
+}
+
+// 編輯會員資料
+export const editUser = async (req, res) => {
+  try {
+    console.log(req)
+    const result = await users.findByIdAndUpdate(req.user._id, {
+      account: req.user.account,
+      name: req.body.name,
+      image: req.file?.path,
+      email: req.body.email
+
+    }, { new: true }) // upsert 當更新找不到時，建立一筆新的商品 (可加在 true, 後面)
+    if (!result) {
+      res.status(404).json({ success: false, message: '找不到' })
+    } else {
+      res.status(200).json({ success: true, message: '', result })
+    }
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ success: false, message: error.errors[Object.keys(error.errors)[0]].message })
+    } else if (error.name === 'CastError') {
+      res.status(404).json({ success: false, message: '找不到' })
+    } else {
+      res.status(500).json({ success: false, message: '未知錯誤' })
+    }
   }
 }
 

@@ -1,44 +1,148 @@
 <template>
   <div id="Admin">
     <div class="content column items-center justify-center">
-      <img :src="`https://source.boringavatars.com/beam/256/${account}?colors=000000,F0A818,304878,181848,F0A818`">
-      <p>帳號 </p>
-      <p>密碼 </p>
-      <!-- 編輯按鈕 -->
-      <q-btn icon="edit" flat  color="primary" @click="prompt = true" />
+      <div class="user">
+      <img class="head" :src="image">
+      <div class="text">
+        <p>名稱：{{ form.name }}</p>
+        <p>信箱：{{ form.email }}</p>
+        <!-- 編輯按鈕 -->
+      <q-btn class="btn" icon="edit" flat  color="primary" @click="form.dialog=true"/>
+      </div>
+
       <!-- 彈跳視窗 -->
-      <q-dialog v-model="prompt" persistent>
+      <q-dialog v-model="form.dialog" persistent>
         <q-card style="min-width: 350px">
-          <q-card-section>
-            <div class="text-h6">編輯資料</div>
-          </q-card-section>
+          <q-form  @submit="submit">
+            <q-card-section>
+              <div class="text-h6">編輯資料</div>
+            </q-card-section>
 
-          <q-card-section class="q-pt-none">
-            <q-input dense v-model="address" autofocus @keyup.enter="prompt = false" />
-          </q-card-section>
+            <q-card-section class="q-pt-none">
+              <q-input
+                filled
+                v-model="form.name"
+                label="修改名稱"
+                hint=""
+                lazy-rules
+                :rules="[rules.required]"
+              />
+              <q-input
+                filled
+                v-model="form.email"
+                label="修改信箱"
+                hint=""
+                lazy-rules
+                :rules="[rules.required]"
+              />
+              <!-- 照片 -->
+              <q-file outlined v-model="form.image">
+                <template v-slot:prepend>
+                  <q-icon name="attach_file" />
+                </template>
+              </q-file>
+            </q-card-section>
 
-          <q-card-actions align="right" class="text-primary">
-            <q-btn flat label="送出" v-close-popup />
-            <q-btn flat label="取消" v-close-popup />
-          </q-card-actions>
+            <q-card-actions align="right" class="text-primary">
+              <q-btn :disabled="form.loading" flat label="送出" v-close-popup  type="submit"/>
+              <q-btn :disabled="form.loading" @click="form.dialog = false" flat label="取消" v-close-popup />
+            </q-card-actions>
+          </q-form>
         </q-card>
       </q-dialog>
+    </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+// import { storeToRefs } from 'pinia'
+// import { useUserStore } from '../../stores/user'
+import { apiAuth } from '../../../plugins/axios'
+import { reactive } from 'vue'
+import Swal from 'sweetalert2'
+import { useUserStore } from 'src/stores/user'
+import { storeToRefs } from 'pinia'
+const user = useUserStore()
 
-const prompt = ref(false)
+const { image } = storeToRefs(user)
+
+const rules = {
+  required (value) {
+    return !!value || '欄位必填'
+  }
+}
+
+// const user = useUserStore()
+// const { avatar, account } = storeToRefs(user)
+
+// const users = reactive([])
+const form = reactive({
+  _id: '',
+  name: '',
+  password: '',
+  image: undefined,
+  email: '',
+
+  loading: false,
+  dialog: false
+})
+
+const submit = async () => {
+  form.loading = true
+
+  // fd.append(key, value)
+  const fd = new FormData()
+  fd.append('name', form.name)
+  fd.append('image', form.image)
+  fd.append('email', form.email)
+
+  await user.editImage(fd)
+  // try {
+  //   const { data } = await apiAuth.patch('/users/eduser', fd)
+  //   form.image = data.result.image
+  //   Swal.fire({
+  //     icon: 'success',
+  //     title: '成功',
+  //     text: '編輯成功'
+  //   })
+
+  //   form.dialog = false
+  // } catch (error) {
+  //   Swal.fire({
+  //     icon: 'error',
+  //     title: '失敗',
+  //     text: error?.response?.data?.message || '發生錯誤'
+  //   })
+  // }
+
+  form.loading = false
+}
+
+(async () => {
+  try {
+    const { data } = await apiAuth.get('/users/me')
+    // users.push(...data.result)
+    form._id = data.result._id
+    form.name = data.result.name || '尚未修改名稱'
+    console.log(image)
+    form.image = data.result.image || '../../../images/尚無照片-01.jpg'
+    form.email = data.result.email
+
+    form.loading = false
+    form.dialog = false
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error?.response?.data?.message || '發生錯誤'
+    })
+  }
+})()
 
 defineProps({
   /* eslint-disable */
   _id: {
-    type: String,
-    default: ''
-  },
-  account: {
     type: String,
     default: ''
   },
@@ -47,26 +151,15 @@ defineProps({
     type: String,
     default: ''
   },
-  time: {
-    type: String,
-    default: ''
-  },
-  description: {
-    type: String,
-    default: ''
-  },
   image: {
     type: String,
     default: ''
   },
-  sell: {
-    type: Boolean,
-    default: false
-  },
-  category: {
+  email: {
     type: String,
     default: ''
   }
+
 })
 
 </script>
@@ -85,6 +178,21 @@ defineProps({
     height: 97%;
     width: 98%;
     overflow: auto;
+    .user{
+      position: relative;
+      .head{
+        width: 250px;
+        margin-bottom: 50px;
+      }
+      .text{
+        position: relative;
+        .btn{
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+    }
   }
 }
 

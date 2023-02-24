@@ -1,17 +1,23 @@
 <template>
   <div id="Admin">
     <div class="content justify-center" align="center">
-      <h4 class="title">魚種圖鑑管理</h4>
 
-      <!-- 新增商品 -->
-      <div class="q-pa-md q-gutter-sm" align="center">
-        <q-btn label="新增魚種" color="primary" @click="openDialog(-1)" />
+      <div class="top col-12 row">
+        <div class="col-8">
+          <h4 class="title">魚種圖鑑管理</h4>
+        </div>
+        <div class="new col-4 q-pa-md q-gutter-sm">
+          <q-btn label="新增魚種" color="primary" @click="openDialog(-1)" />
+        </div>
       </div>
-      <div class="q-pa-md q-gutter-sm col-12" align="center">
+
+      <!-- 分類組 -->
+      <div class="categroys q-pa-md q-gutter-sm col-12" align="center">
         <q-btn v-for="fish,index in fishCategory" outline rounded color="primary" :key="index" :label="fish" @click="fishActive=fish" />
       </div>
 
-        <table style="width: 70%; " border="1">
+        <!-- 表格 ------------------------------------------------------>
+        <table>
           <thead>
             <tr align="center">
               <th>圖片</th>
@@ -24,16 +30,16 @@
           </thead>
           <tbody>
             <tr align="center" v-for="(fish, idx) in ac" :key="fish._id">
-              <td>
+              <td class="img">
                 <img :src="fish.image"  :width="100">
               </td>
-              <td>{{ fish.name }}</td>
-              <td>{{ fish.size }} cm</td>
-              <td>{{ fish.place }}</td>
-              <td>{{ fish.category }}</td>
-              <td >
-                <q-btn round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
-                <q-btn round color="red" icon="delete" @click="deleteFish(fish._id)"></q-btn>
+              <td class="name">{{ fish.name }}</td>
+              <td class="size">{{ fish.size }} cm</td>
+              <td class="place">{{ fish.place }}</td>
+              <td class="categroy">{{ fish.category }}</td>
+              <td class="btn">
+                <q-btn size="sm" round color="primary" icon="edit" @click="openDialog(idx)"></q-btn>
+                <q-btn size="sm" round color="red" icon="delete" @click="deleteFish(fish._id)"></q-btn>
               </td>
             </tr>
           </tbody>
@@ -42,22 +48,25 @@
         <!-- 彈跳視窗 -->
         <q-dialog v-model="form.dialog" persistent>
 
-          <q-card style="min-width: 700px">
+          <q-card style="width: 100%;">
             <q-form  @submit="submit">
 
             <q-card-section class="flex row justify-between" style="padding: 16px 50px 16px 50px;">
               <!-- 標題 -->
               <div class="text-h6 col-12" align="center">{{ form._id.length > 0 ? '編輯魚種' : '新增魚種' }}</div>
               <!-- 名稱 -->
-              <q-input class="col-4" style="padding:10px ;"
+              <q-input class="col-6" style="padding:10px ;"
                 filled
                 v-model="form.name"
                 label="名稱"
                 lazy-rules
                 :rules="[rules.required]"
               />
+              <!-- 分類 -->
+              <q-select class="col-6" style="padding:10px ;" filled v-model="form.category" :options="categories" label="分類" :rules="[rules.required]" />
+
               <!-- 英文名稱 -->
-              <q-input class="col-4" style="padding:10px ;"
+              <q-input class="col-6" style="padding:10px ;"
                 filled
                 v-model="form.egname"
                 label="英文名稱"
@@ -65,7 +74,7 @@
                 :rules="[rules.required]"
               />
               <!-- 學術名稱 -->
-              <q-input class="col-4" style="padding:10px ;"
+              <q-input class="col-6" style="padding:10px ;"
                 filled
                 v-model="form.stname"
                 label="學術名稱"
@@ -87,9 +96,6 @@
               />
               <!-- 產地 -->
               <q-select class="col-6" style="padding:10px ;" filled v-model="form.place" :options="places" label="產地" :rules="[rules.required]" />
-
-              <!-- 分類 -->
-              <q-select class="col-6" style="padding:10px ;" filled v-model="form.category" :options="categories" label="分類" :rules="[rules.required]" />
 
               <!-- 照片 -->
               <q-file class="col-6" style="padding:10px ;" outlined v-model="form.image">
@@ -274,7 +280,7 @@ const deleteFish = async (id) => {
 }
 
 // 篩選分類 -------------
-const fishCategory = ['所有魚種', '小丑魚', '倒吊魚', '神仙魚']
+const fishCategory = ['所有魚種', '小丑魚', '雀鯛', '倒吊魚', '小型神仙', '大型神仙', '蝶魚', '砲彈', '箱魨', '魨魚', '青蛙', '隆頭魚', '草莓魚', '海金魚', '蝦虎', '䲁魚', '海馬', '鯊魚']
 const fishActive = ref(fishCategory[0])
 
 const ac = computed(() => {
@@ -310,7 +316,7 @@ const ac = computed(() => {
 
 #Admin{
   background: rgb(15,85,165);
-  height: 100vh;
+  height: 94vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -320,11 +326,72 @@ const ac = computed(() => {
     border-radius: 30px;
     height: 97%;
     width: 98%;
-    overflow: hidden;
+    overflow: auto;
     position: relative;
-    padding: 30px;
-    .title{
-      margin: 10px 0 10px 0;
+    .top{
+      max-width: 800px;
+      height: 50px;
+      line-height: 50px;
+      margin-top: 50px;
+      h4{
+        margin: 0;
+        text-align: left;
+        padding-left: 10px;
+        margin-left: 20px;
+        border-left: 5px solid rgb(15,85,165);
+      }
+      .new{
+        padding: 0;
+        text-align: right;
+      }
+    }
+    .categroys{
+      max-width: 800px;
+    }
+    table{
+      border-collapse:collapse;
+      max-width: 800px;
+      th{
+        background: rgb(15,85,165);
+        height: 30px;
+        color: white;
+        padding: 0 10px;
+        border-left: 1px solid white;
+      }
+      td{
+        border-left: 1px solid rgba(0,0,0,0.1);
+      }
+      th:nth-child(4){
+        text-align: center;
+      }
+      tr:nth-child(even){
+        background-color:white;
+      }
+      .name{
+        width: 20%;
+        padding: 10px;
+      }
+      .size{
+        width: 10%;
+      }
+      .place{
+        width: 10%;
+        text-align: center;
+      }
+      .categroy{
+        width: 10%;
+      }
+      .q-btn{
+        margin: 5px;
+      }
+      .img{
+        width: 30%;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+
     }
   }
 }
