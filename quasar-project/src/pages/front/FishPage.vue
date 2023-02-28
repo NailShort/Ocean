@@ -22,84 +22,70 @@
       </div>
       <!-- 雀鯛 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish1"></div>
-        <q-btn to="/tangfish" flat style="color: black" label="雀鯛" />
+        <router-link to="/damselfish"> <div class="card fish1"></div></router-link>
+        <q-btn to="/damselfish" flat style="color: black" label="雀鯛" />
       </div>
       <!-- 倒吊 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish2"></div>
+        <router-link to="/tangfish"><div class="card fish2"></div></router-link>
         <q-btn to="/tangfish" flat style="color: black" label="倒吊" />
       </div>
       <!-- 小神 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish3"></div>
-        <q-btn to="/" flat style="color: black" label="小型神仙" />
+        <router-link to="/sangelfish"><div class="card fish3"></div></router-link>
+        <q-btn to="/sangelfish" flat style="color: black" label="小型神仙" />
       </div>
       <!-- 大神 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish4"></div>
-        <q-btn to="/" flat style="color: black" label="大型神仙" />
+        <router-link to="/angelfish"><div class="card fish4"></div></router-link>
+        <q-btn to="/angelfish" flat style="color: black" label="大型神仙" />
       </div>
       <!-- 鰈魚 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish5"></div>
-        <q-btn to="/" flat style="color: black" label="蝶魚" />
+        <router-link to="/butterflyfish"><div class="card fish5"></div></router-link>
+        <q-btn to="/butterflyfish" flat style="color: black" label="蝶魚" />
       </div>
       <!-- 砲彈 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish6"></div>
-        <q-btn to="/" flat style="color: black" label="砲彈" />
+        <router-link to="/triggerfish"><div class="card fish6"></div></router-link>
+        <q-btn to="/triggerfish" flat style="color: black" label="砲彈" />
       </div>
       <!-- 箱魨 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish3"></div>
-        <q-btn to="/" flat style="color: black" label="箱魨" />
+        <router-link to="/boxfish"><div class="card fish7"></div></router-link>
+        <q-btn to="/boxfish" flat style="color: black" label="箱魨" />
       </div>
       <!-- 魨魚 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div  class="card clown"></div>
-        <q-btn to="/" flat style="color: black" label="魨魚" />
+        <router-link to="/pufferfish"><div  class="card fish8"></div></router-link>
+        <q-btn to="/pufferfish" flat style="color: black" label="魨魚" />
       </div>
       <!-- 青蛙 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish1"></div>
-        <q-btn to="/" flat style="color: black" label="青蛙" />
+        <router-link to="/frogfish"><div class="card fish9"></div></router-link>
+        <q-btn to="/frogfish" flat style="color: black" label="青蛙" />
       </div>
       <!-- 隆頭魚 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish2"></div>
-        <q-btn to="/" flat style="color: black" label="隆頭魚" />
+        <router-link to="/wrassefish"><div class="card fish10"></div></router-link>
+        <q-btn to="/wrassefish" flat style="color: black" label="隆頭魚" />
       </div>
       <!-- 草莓魚 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish3"></div>
-        <q-btn to="/" flat style="color: black" label="草莓魚" />
+        <router-link to="/pseudochromisfish"><div class="card fish11"></div></router-link>
+        <q-btn to="/pseudochromisfish" flat style="color: black" label="草莓魚" />
       </div>
       <!-- 海金魚 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div  class="card clown"></div>
-        <q-btn to="/" flat style="color: black" label="海金魚" />
+        <router-link to="/anthiasfish"><div  class="card fish12"></div></router-link>
+        <q-btn to="/anthiasfish" flat style="color: black" label="海金魚" />
       </div>
       <!-- 蝦虎 -->
       <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish1"></div>
-        <q-btn to="/" flat style="color: black" label="蝦虎" />
+        <router-link to="/gobyfish"><div class="card fish13"></div></router-link>
+        <q-btn to="/gobyfish" flat style="color: black" label="蝦虎" />
       </div>
-      <!-- 䲁魚 -->
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish2"></div>
-        <q-btn to="/" flat style="color: black" label="䲁魚" />
-      </div>
-      <!-- 海馬 -->
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish3"></div>
-        <q-btn to="/" flat style="color: black" label="海馬" />
-      </div>
-      <!-- 鯊魚 -->
-      <div class="col-12 col-sm-6 col-md-4 col-lg-3" style="">
-        <div class="card fish3"></div>
-        <q-btn to="/" flat style="color: black" label="鯊魚" />
-      </div>
+
     </div>
     </div>
   </div>
@@ -160,8 +146,27 @@
         background: url(../../../images/fishbook/砲彈.png) no-repeat center/cover;
       }
       .fish7{
-        background: url(../../../images/fishbook/cf.png) no-repeat center/cover;
+        background: url(../../../images/fishbook/箱魨.png) no-repeat center/cover;
       }
+      .fish8{
+        background: url(../../../images/fishbook/魨魚.png) no-repeat center/cover;
+      }
+      .fish9{
+        background: url(../../../images/fishbook/青蛙.png) no-repeat center/cover;
+      }
+      .fish10{
+        background: url(../../../images/fishbook/隆頭魚.png) no-repeat center/cover;
+      }
+      .fish11{
+        background: url(../../../images/fishbook/草莓.png) no-repeat center/cover;
+      }
+      .fish12{
+        background: url(../../../images/fishbook/海金魚.png) no-repeat center/cover;
+      }
+      .fish13{
+        background: url(../../../images/fishbook/雷達.png) no-repeat center/cover;
+      }
+
     }
   }
 }

@@ -106,6 +106,126 @@ const routes = [
         }
       },
       {
+        path: '/damselfish',
+        name: 'damselfish',
+        component: () => import('pages/front/fishBook/DamselFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 雀鯛',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/sangelfish',
+        name: 'sangelfish',
+        component: () => import('pages/front/fishBook/SAngelFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 小型神仙',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/angelfish',
+        name: 'angelfish',
+        component: () => import('pages/front/fishBook/AngelFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 大型神仙',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/butterflyfish',
+        name: 'butterflyfish',
+        component: () => import('pages/front/fishBook/ButterflyFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 蝶魚',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/triggerfish',
+        name: 'triggerfish',
+        component: () => import('pages/front/fishBook/TriggerFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 砲彈魚',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/boxfish',
+        name: 'boxfish',
+        component: () => import('pages/front/fishBook/BoxFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 箱魨',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/pufferfish',
+        name: 'pufferfish',
+        component: () => import('pages/front/fishBook/PufferFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 魨魚',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/frogfish',
+        name: 'frogfish',
+        component: () => import('pages/front/fishBook/FrogFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 青蛙',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/wrassefish',
+        name: 'wrassefish',
+        component: () => import('pages/front/fishBook/WrasseFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 隆頭魚',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/pseudochromisfish',
+        name: 'pseudochromisfish',
+        component: () => import('pages/front/fishBook/PseudochromisFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 草莓魚',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/anthiasfish',
+        name: 'anthiasfish',
+        component: () => import('pages/front/fishBook/AnthiasFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 海金魚',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: '/gobyfish',
+        name: 'gobyfish',
+        component: () => import('pages/front/fishBook/GobyFish.vue'),
+        meta: {
+          title: 'Ocean | 魚種圖鑑 | 蝦虎',
+          login: false,
+          admin: false
+        }
+      },
+      {
         path: '/latest',
         name: 'latest',
         component: () => import('src/pages/front/LatestPage.vue'),
