@@ -28,8 +28,8 @@
       <p>coral reef fish</p>
     </div>
     <div class="btn">
-      <q-btn style="background: white; color: rgb(15,85,165)" label="文章討論" />
-      <q-btn outline style="color: white;" label="魚種圖鑑" />
+      <q-btn to="/article" style="background: white; color: rgb(15,85,165)" label="文章討論" />
+      <q-btn to="/fish" outline style="color: white;" label="魚種圖鑑" />
     </div>
     </div>
 
@@ -262,8 +262,8 @@ const fishActive = ref(articleCategory[0])
     transform: translate(-50%,-50%);
     width: 100%;
     text-align: center;
-    q-btn{
-      display: flex;
+    .q-btn{
+      margin: 0 5px;
     }
     button{
       margin: 10px;

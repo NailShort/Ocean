@@ -87,6 +87,16 @@ export const getUser = (req, res) => {
   }
 }
 
+// 取所有的會員，管理員專用
+export const getAllUsers = async (req, res) => {
+  try {
+    const result = await users.find()
+    res.status(200).json({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).json({ success: false, message: '未知錯誤' })
+  }
+}
+
 // 編輯會員資料
 export const editUser = async (req, res) => {
   try {

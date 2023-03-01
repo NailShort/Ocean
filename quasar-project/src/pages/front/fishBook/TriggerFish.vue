@@ -1,9 +1,9 @@
 <template>
-  <!-- 小丑魚種類頁面 -->
+  <!-- 砲彈種類頁面 -->
   <div id="tf">
     <div class="contant row">
       <div class="title col-12">
-        <div class="ch">砲彈魚</div>
+        <div class="ch">砲彈</div>
         <div class="eg">Trigger Fish</div>
       </div>
       <!-- 路徑 -->
@@ -12,7 +12,7 @@
         <span>></span>
         <q-btn to="/fish" flat style="color: black" label="魚種圖鑑" />
         <span>></span>
-        <q-btn :disable="!progress" flat style="color: gray" label="砲彈魚" />
+        <q-btn :disable="!progress" flat style="color: gray" label="砲彈" />
       </div>
       <!-- 卡片 -->
       <div class="card col-12 row items-center justify-center">
@@ -34,7 +34,7 @@ const fishs = reactive([]);
 
 (async () => {
   try {
-    const { data } = await api.get('/fishs/category?category=砲彈魚')
+    const { data } = await api.get('/fishs/category?category=砲彈')
     fishs.push(...data.result)
   } catch (error) {
     Swal.fire({

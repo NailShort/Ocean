@@ -1,4 +1,5 @@
 import replys from '../models/replys.js'
+import users from '../models/users.js'
 
 // 新增回覆
 export const createReply = async (req, res) => {
@@ -9,7 +10,15 @@ export const createReply = async (req, res) => {
       image: req.file?.path || '',
       proid: req.body.proid
     })
-    res.status(200).json({ success: true, message: '', result })
+
+    const user = await users.findById(req.user._id, 'image name')
+    result.userid = user
+
+    res.status(200).json({
+      success: true,
+      message: '',
+      result
+    })
   } catch (error) {
     if (error.name === 'ValidationError') {
       res.status(400).json({ success: false, message: error.errors[Object.keys(error.errors)[0]].message })
@@ -45,7 +54,7 @@ export const editReply = async (req, res) => {
 // 取單個商品，查id
 export const getReply = async (req, res) => {
   try {
-    const result = await replys.find({ proid: req.params.id })
+    const result = await replys.find({ proid: req.params.id }).populate('userid', 'image name')
     if (!result) {
       res.status(404).json({ success: false, message: '找不到' })
     } else {

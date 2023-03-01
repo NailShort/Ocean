@@ -9,6 +9,8 @@ import orderRoute from './routes/orders.js'
 import likeRoute from './routes/likes.js'
 import latestsRoute from './routes/latests.js'
 import replyRoute from './routes/replys.js'
+import contactRoute from './routes/contacts.js'
+
 import './passport/passport.js'
 
 mongoose.connect(process.env.DB_URL)
@@ -45,6 +47,7 @@ app.use('/orders', orderRoute)
 app.use('/likes', likeRoute)
 app.use('/latests', latestsRoute)
 app.use('/replys', replyRoute)
+app.use('/contacts', contactRoute)
 
 app.get('/', (req, res) => {
   res.status(200).json({ success: true, message: '' })

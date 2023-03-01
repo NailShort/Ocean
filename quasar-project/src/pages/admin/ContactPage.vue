@@ -4,27 +4,25 @@
 
       <div class="top col-12 row">
         <div class="col-8">
-          <h4 class="title">會員資料查看</h4>
+          <h4 class="title">聯絡訊息查看</h4>
         </div>
       </div>
 
         <table>
           <thead>
             <tr align="left">
-              <th>照片</th>
-              <th>名稱</th>
-              <th>帳號</th>
+              <th>姓名</th>
+              <th>年齡</th>
               <th>信箱</th>
+              <th>內容</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(user) in users" :key="user._id">
-              <td class="img">
-                <img :src="user.image"  :width="100">
-              </td>
-              <td class="name">{{ user.name }}</td>
-              <td class="name">{{ user.account }}</td>
-              <td class="email">{{ user.email }}</td>
+            <tr v-for="(contact) in contacts" :key="contact._id">
+              <td class="name">{{ contact.name }}</td>
+              <td class="age">{{ contact.age}}</td>
+              <td class="email">{{ contact.email}}</td>
+              <td class="des">{{ contact.description }}</td>
             </tr>
           </tbody>
         </table>
@@ -38,12 +36,12 @@ import { apiAuth } from '../../../plugins/axios'
 import { reactive } from 'vue'
 import Swal from 'sweetalert2'
 
-const users = reactive([]);
+const contacts = reactive([]);
 
 (async () => {
   try {
-    const { data } = await apiAuth.get('/users/all')
-    users.push(...data.result)
+    const { data } = await apiAuth.get('/contacts/all')
+    contacts.push(...data.result)
   } catch (error) {
     Swal.fire({
       icon: 'error',
@@ -107,19 +105,18 @@ const users = reactive([]);
         background-color:white;
       }
       .name{
-        width: 250px;
+        width: 100px;
         padding: 10px;
       }
-      .email{
-        width: 250px;
+      .age{
+        width: 100px;
       }
-      .img{
+      .email{
         width: 200px;
-        text-align: center;
-        img{
-          max-width: 100%;
-          max-height: 100%;
-        }
+      }
+      .des{
+        width: 400px;
+        white-space: pre-wrap;
       }
 
     }

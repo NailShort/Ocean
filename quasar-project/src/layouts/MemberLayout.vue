@@ -18,7 +18,9 @@
             <li class="head">
               <div class="content">
                 <router-link to="/member">
-                  <img :src="image">
+                  <div class="img">
+                    <img :src="image">
+                  </div>
                 </router-link>
               <p> {{ account }}</p>
             </div>
@@ -114,6 +116,14 @@ function toggleLeftDrawer () {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      .img{
+        width: 90px;
+        height: 90px;
+        img{
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
       .content{
         width: 300px;
         height: 150px;
@@ -121,12 +131,8 @@ function toggleLeftDrawer () {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        img{
-          height: 80px;
-          width: 80px;
-        }
         p{
-          color: #F0A818;
+          color: white;
           font-size: 20px;
           height: 50px;
           line-height: 50px;

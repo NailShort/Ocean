@@ -18,7 +18,9 @@
             <li class="head">
               <div class="content">
                 <router-link to="/admin">
-                  <img :src="avatar">
+                  <div class="img">
+                    <img :src="image">
+                  </div>
                 </router-link>
               <p> {{ account }} </p>
             </div>
@@ -50,7 +52,14 @@
                 <q-item-section avatar>
                   <q-icon name="groups" />
                 </q-item-section>
-                <q-item-section>會員資料管理</q-item-section>
+                <q-item-section>會員資料查看</q-item-section>
+              </q-item>
+
+              <q-item clickable v-ripple to="/admin/contact">
+                <q-item-section avatar>
+                  <q-icon name="contact_support" />
+                </q-item-section>
+                <q-item-section>聯絡訊息查看</q-item-section>
               </q-item>
 
               <q-item clickable v-ripple to="/">
@@ -94,7 +103,7 @@ import { storeToRefs } from 'pinia'
 import { useUserStore } from '../stores/user'
 
 const user = useUserStore()
-const { avatar, account } = storeToRefs(user)
+const { account, image } = storeToRefs(user)
 
 const leftDrawerOpen = ref(false)
 
@@ -128,6 +137,14 @@ function toggleLeftDrawer () {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      .img{
+        width: 90px;
+        height: 90px;
+        img{
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
       .content{
         width: 300px;
         height: 150px;
@@ -135,10 +152,6 @@ function toggleLeftDrawer () {
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        img{
-          height: 80px;
-          width: 80px;
-        }
         p{
           color: #F0A818;
           font-size: 20px;

@@ -15,7 +15,7 @@
           <!-- 頭 -->
           <q-item-section class="head col-2" avatar>
             <q-avatar>
-              <img :src="avatar">
+              <img v-if="userid" :src="userid.image || `https://source.boringavatars.com/beam/256/${userid.name}?colors=000000,F0A818,304878,181848,F0A818`">
             </q-avatar>
           </q-item-section>
 
@@ -37,11 +37,11 @@
 </template>
 
 <script setup>
-import { storeToRefs } from 'pinia'
+// import { storeToRefs } from 'pinia'
 import { useUserStore } from '../stores/user'
 
 const user = useUserStore()
-const { avatar } = storeToRefs(user)
+// const { avatar } = storeToRefs(user)
 
 defineProps({
   /* eslint-disable */
@@ -124,6 +124,10 @@ const { editLike } = user
   .head{
     justify-content: start;
     align-items: center;
+    img{
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
   .like{
     position: absolute;

@@ -21,8 +21,10 @@
       <div class="col-12">
         <p class="title">{{ product.name }}</p>
         <p class="user row items-center justify-center">
-          <img class="user-img" :src="avatar">
-          <span class="user-name">{{ product.userid }}</span>
+          <span class="user-img">
+            <img :src="avatar">
+          </span>
+          <span class="user-name">{{ product.userid.name }}</span>
           {{ product.time }}
           <q-btn class="like" icon="favorite_border" label="Like" @click="editLike({_id, quantity: 1})"/>
         </p>
@@ -76,17 +78,6 @@
     </div>
 
     <!-- 回覆內容 -->
-    <!-- <div class="reply col-12 row items-center justify-center">
-      <div class="re-user col-3 row items-center justify-center">
-        <div class="line"></div>
-        <img src="../../../images/fishbook/小丑.png" alt="">
-        <div class="re-name">user name</div>
-      </div>
-      <div class="re-des col-9">
-        <p class="time">2023-02-20</p>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis atque, aliquam dolorum earum modi nostrum tenetur odio minima qui ipsa quas asperiores officiis, obcaecati rerum et dolore? Pariatur, impedit eius asperiores voluptatibus atque molestiae quia molestias accusantium quisquam maxime officia beatae commodi sapiente repellat cupiditate nam, at magni. Commodi sapiente fugit voluptas, nisi rerum dignissimos! Distinctio non sapiente consequuntur ab assumenda reiciendis, soluta hic labore dolorem, tempore magnam iste eum temporibus harum ea. Veniam nulla quisquam deleniti aliquam suscipit at.</p>
-      </div>
-    </div> -->
     <div class="col-12 row justify-center items-center" v-for="reply in replys" :key="reply._id">
       <ReplyCard v-bind="reply"></ReplyCard>
     </div>
@@ -117,7 +108,7 @@ const router = useRouter()
 const { editLike } = user
 
 const avatar = computed(() => {
-  return `https://source.boringavatars.com/beam/256/${product.userid}?colors=000000,F0A818,304878,181848,F0A818`
+  return product.userid.image || `https://source.boringavatars.com/beam/256/${product.userid.name}?colors=000000,F0A818,304878,181848,F0A818`
 })
 
 // 發表回覆 -------------------------------------------------------------
@@ -166,7 +157,6 @@ const submit = async () => {
   try {
     if (form._id.length === 0) {
       const { data } = await apiAuth.post('/replys', fd)
-      console.log(data.result)
       replys.push(data.result)
       Swal.fire({
         icon: 'success',
@@ -249,6 +239,7 @@ const getProductData = async () => {
 const getReplysData = async () => {
   try {
     const { data } = await api.get('/replys/' + product._id)
+    console.log(data.result)
     replys.push(...data.result)
   } catch (error) {
     Swal.fire({
@@ -315,6 +306,10 @@ export default {
       .user-img{
         width: 50px;
         height: 50px;
+        img{
+          max-width: 100%;
+          max-height: 100%;
+        }
       }
       .user-name{
         font-size: 20px;

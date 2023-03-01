@@ -3,6 +3,7 @@ import { Schema, model } from 'mongoose'
 const schema = new Schema({
   userid: {
     type: String,
+    ref: 'users',
     required: [true, '缺少使用者']
   },
   name: {

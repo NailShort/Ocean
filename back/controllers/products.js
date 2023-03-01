@@ -25,7 +25,7 @@ export const createProduct = async (req, res) => {
 // 取上架商品，找 sell 為 true 值的商品
 export const getSellProducts = async (req, res) => {
   try {
-    const result = await products.find({ sell: true })
+    const result = await products.find({ sell: true }).populate('userid', 'image name')
     res.status(200).json({ success: true, message: '', result })
   } catch (error) {
     res.status(500).json({ success: false, message: '未知錯誤' })
@@ -45,7 +45,7 @@ export const getAllProducts = async (req, res) => {
 // 取單個商品，查id
 export const getProduct = async (req, res) => {
   try {
-    const result = await products.findById(req.params.id)
+    const result = await products.findById(req.params.id).populate('userid', 'image name')
     if (!result) {
       res.status(404).json({ success: false, message: '找不到' })
     } else {

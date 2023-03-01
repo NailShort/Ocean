@@ -2,7 +2,9 @@
   <div id="Admin">
     <div class="content column items-center justify-center">
       <div class="user">
-      <img class="head" :src="image">
+        <div class="img">
+          <img class="head" :src="image">
+        </div>
       <div class="text">
         <p>名稱：{{ form.name }}</p>
         <p>信箱：{{ form.email }}</p>
@@ -179,10 +181,14 @@ defineProps({
     width: 98%;
     overflow: auto;
     .user{
-      position: relative;
-      .head{
-        width: 250px;
-        margin-bottom: 50px;
+      .img{
+        width: 200px;
+        height: 250px;
+        margin-bottom: 20px;
+        img{
+          max-width: 100%;
+          max-height: 100%;
+        }
       }
       .text{
         position: relative;

@@ -27,61 +27,118 @@
       <!-- 表單卡片 -->
       <q-card class="my-card col-12 row items-center justify-center">
         <q-form
-      @submit="onSubmit"
-      @reset="onReset"
-      class="q-gutter-md  col-12 "
-    >
-    <p class="aaa"><span style="color: red;">●</span> 我們收到您的意見後將於工作日由專人以郵件回覆您。</p>
-      <q-input
-        class="col-10"
-        filled
-        v-model="name"
-        label="姓名"
-        hint="Name and surname"
-        lazy-rules
-        :rules="[ val => val && val.length > 0 || '欄位必填']"
-      />
+          @submit="submit"
+          @reset="onreset"
+          class="q-gutter-md  col-12 "
+        >
+          <p class="aaa"><span style="color: red;">●</span> 我們收到您的意見後將於工作日由專人以郵件回覆您。</p>
+            <q-input
+              class="col-10"
+              filled
+              v-model="form.name"
+              label="姓名"
+              hint="請輸入姓名"
+              lazy-rules
+              :rules="[rules.required]"
+          />
 
-      <q-input
-        class="col-10"
-        filled
-        type="number"
-        v-model="age"
-        label="年齡"
-        lazy-rules
-        :rules="[
-          val => val !== null && val !== '' || '欄位必填',
-          val => val > 0 && val < 100 || '欄位必填'
-        ]"
-      />
+          <q-input
+            class="col-10"
+            filled
+            type="number"
+            v-model="form.age"
+            label="年齡"
+            hint="請輸入年齡"
+            lazy-rules
+            :rules="[rules.required]"
+          />
 
-      <q-input v-model="email" filled type="email" hint="Email" />
+          <q-input
+            v-model="form.email"
+            filled type="email"
+            hint="Email"
+            :rules="[rules.required]"
+          />
 
-      <!-- 內文 -->
-      <q-input class="col-10"
-        v-model="age"
-        filled
-        clearable
-        type="textarea"
-        color="red-12"
-        label="內文"
-        hint="輸入內文"
-        :shadow-text="textareaShadowText"
-        @keydown="processTextareaFill"
-        @focus="processTextareaFill"
-      />
+          <!-- 內文 -->
+          <q-input class="col-10"
+            v-model="form.description"
+            filled
+            clearable
+            type="textarea"
+            color="red-12"
+            label="內文"
+            hint="請輸入內文"
+            :shadow-text="textareaShadowText"
+            @keydown="processTextareaFill"
+            @focus="processTextareaFill"
+            :rules="[rules.required]"
+          />
 
-      <div class="btn">
-        <q-btn label="送出" type="submit" color="primary"/>
-        <q-btn label="重製" type="reset" color="primary" flat class="q-ml-sm" />
-      </div>
-    </q-form>
-    </q-card>
+          <div class="btn">
+            <q-btn :disabled="form.loading" label="送出" type="submit" color="primary"/>
+            <q-btn label="重製" type="reset" color="primary" flat class="q-ml-sm" />
+          </div>
+        </q-form>
+      </q-card>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { apiAuth } from '../../../plugins/axios'
+import { reactive } from 'vue'
+import Swal from 'sweetalert2'
+
+const rules = {
+  required (value) {
+    return !!value || '欄位必填'
+  }
+}
+
+const contacts = reactive([])
+const form = reactive({
+  _id: '',
+  name: '',
+  age: '',
+  email: '',
+  description: '',
+
+  loading: false
+})
+
+const submit = async () => {
+  form.loading = true
+
+  // fd.append(key, value)
+  const fd = new FormData()
+  fd.append('name', form.name)
+  fd.append('age', form.age)
+  fd.append('email', form.email)
+  fd.append('description', form.description)
+
+  try {
+    const { data } = await apiAuth.post('/contacts', fd)
+    contacts.push(data.result)
+    Swal.fire({
+      icon: 'success',
+      title: '成功',
+      text: '已收到您的意見，將於工作日由專人以郵件回覆您'
+    })
+
+    form.dialog = false
+  } catch (error) {
+    Swal.fire({
+      icon: 'error',
+      title: '失敗',
+      text: error?.response?.data?.message || '發生錯誤'
+    })
+  }
+
+  form.loading = false
+}
+
+</script>
 
 <style lang="scss" scoped>
 #contact{

@@ -300,7 +300,18 @@ const routes = [
           login: true,
           admin: true
         }
+      },
+      {
+        path: 'contact',
+        name: 'admin-contact',
+        component: () => import('pages/admin/ContactPage.vue'),
+        meta: {
+          title: 'Ocean | 聯絡訊息查看',
+          login: true,
+          admin: true
+        }
       }
+
     ]
   },
   {
